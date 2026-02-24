@@ -89,6 +89,21 @@ class ProviderDB:
             value TEXT NOT NULL
         )
         """)
+        
+        # Compatibility View: Aliases model_id as ollama_name
+        # This allows SmarterRouter to query provider.db using its existing schema expectations
+        cursor.execute("""
+        CREATE VIEW IF NOT EXISTS router_compatibility_view AS
+        SELECT 
+            model_id as ollama_name,
+            reasoning_score,
+            coding_score,
+            general_score,
+            elo_rating,
+            last_updated,
+            archived
+        FROM model_benchmarks
+        """)
     
     # ==================== MODEL BENCHMARKS ====================
     
