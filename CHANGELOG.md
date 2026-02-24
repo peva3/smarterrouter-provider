@@ -88,6 +88,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed model ID sanitization in database operations
 - Fixed archived column migration for existing databases
 - Fixed database path handling in CLI
+- Fixed general_score default value (was 1000, now 0.0)
+- Fixed empty result handling for LiveBench and BigCodeBench (now properly counted as failures)
+- Fixed reactivation logic to use correct set of archived models
+- Ensured stats consistency for added/estimated model counts
+- Fixed write logic to always upsert existing models on every build (now updates scores instead of skipping)
 
 ### Documentation
 

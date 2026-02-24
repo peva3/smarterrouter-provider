@@ -117,11 +117,16 @@ class BenchmarkBuilder:
             
             # Fetch all OpenRouter models to ensure 100% coverage
             openrouter_models = set()
+            archived_before = set()  # Initialize in case OpenRouter fetch fails
             logger.info("Fetching OpenRouter model catalog...")
             try:
                 from .sources.openrouter import OpenRouterFetcher
                 openrouter_models = set(await OpenRouterFetcher().fetch())
                 logger.info(f"OpenRouter has {len(openrouter_models)} total models")
+                
+                # Capture set of archived model IDs BEFORE writing, for accurate reactivation stats
+                all_models_before = self.db.list_all_benchmarks()
+                archived_before = {m['model_id'] for m in all_models_before if m.get('archived', 0)}
                 
                 # Import heuristics for score estimation
                 from .sources import heuristics
@@ -157,31 +162,36 @@ class BenchmarkBuilder:
                             )
                             added_count += 1
                 
+                # Always set stats, even if zero
+                self.stats['models_added_defaults'] = added_count
+                self.stats['models_estimated'] = estimated_count
                 if added_count > 0 or estimated_count > 0:
                     logger.info(f"Added {added_count} OpenRouter models with default scores")
                     logger.info(f"Estimated scores for {estimated_count} OpenRouter models using heuristics")
-                    self.stats['models_added_defaults'] = added_count
-                    self.stats['models_estimated'] = estimated_count
                     
             except Exception as e:
                 logger.warning(f"Failed to fetch OpenRouter models: {e}. Proceeding with only benchmarked models.")
+                # Ensure stats keys exist for consistency
+                self.stats['models_added_defaults'] = 0
+                self.stats['models_estimated'] = 0
             
             # Write to database
             logger.info(f"Writing {len(aggregated)} models to database...")
             await self._write_to_db(aggregated, force=force)
             
-            # Handle archiving: models in DB but not in OpenRouter
+            # Handle archiving and reactivation
             archived_count = 0
             reactivated_count = 0
             if openrouter_models:
+                # Archive models that are active but no longer in OpenRouter
                 models_to_archive = existing_active_ids - openrouter_models
                 for model_id in models_to_archive:
                     self.db.archive_model(model_id)
                     archived_count += 1
                 
-                # Handle reactivation: archived models that are back in OpenRouter
-                archived_in_db = existing_active_ids & (openrouter_models - set(aggregated.keys()))
-                for model_id in archived_in_db:
+                # Reactivate models that were archived but are now back in OpenRouter
+                reactivated_ids = archived_before & openrouter_models
+                for model_id in reactivated_ids:
                     self.db.unarchive_model(model_id)
                     reactivated_count += 1
                 
@@ -274,6 +284,9 @@ class BenchmarkBuilder:
                 if result:
                     self.stats['sources_succeeded'].append('livebench')
                     logger.info(f"LiveBench: fetched {len(result)} reasoning scores")
+                else:
+                    self.stats['sources_failed'].append('livebench')
+                    logger.info("LiveBench: failed to fetch (no data)")
                 return {'reasoning': result}
             except Exception as e:
                 logger.error(f"LiveBench fetch failed: {e}")
@@ -289,6 +302,9 @@ class BenchmarkBuilder:
                 if result:
                     self.stats['sources_succeeded'].append('bigcodebench')
                     logger.info(f"BigCodeBench: fetched {len(result)} coding scores")
+                else:
+                    self.stats['sources_failed'].append('bigcodebench')
+                    logger.info("BigCodeBench: failed to fetch (no data)")
                 return {'coding': result}
             except Exception as e:
                 logger.error(f"BigCodeBench fetch failed: {e}")
@@ -708,7 +724,7 @@ class BenchmarkBuilder:
             # Average if multiple scores for same category (conflict resolution)
             avg_reasoning = sum(reasoning_scores) / len(reasoning_scores) if reasoning_scores else 0.0
             avg_coding = sum(coding_scores) / len(coding_scores) if coding_scores else 0.0
-            avg_general = sum(general_scores) / len(general_scores) if general_scores else 1000
+            avg_general = sum(general_scores) / len(general_scores) if general_scores else 0.0
             avg_elo = int(sum(elo_ratings) / len(elo_ratings)) if elo_ratings else 1000
             
             # Ensure within valid ranges
@@ -729,22 +745,23 @@ class BenchmarkBuilder:
         return aggregated
     
     async def _write_to_db(self, models: dict[str, ModelBenchmark], force: bool = False) -> None:
-        """Write aggregated models to database."""
+        """Write aggregated models to database.
         
-        # Check existing if not forcing
-        existing = {}
-        if not force:
+        Always upserts all models to refresh benchmark data.
+        The `force` flag is retained for backward compatibility but no longer affects behavior.
+        """
+        # Fetch existing to distinguish insert vs update for stats
+        existing_ids = set()
+        try:
             existing = self.db.get_benchmarks_for_models(list(models.keys()))
+            existing_ids = set(existing.keys())
+        except Exception:
+            existing_ids = set()
         
-        written = 0
-        skipped = 0
+        inserted = 0
+        updated = 0
         
         for model_id, benchmark in models.items():
-            # Skip if already exists and not forcing
-            if not force and model_id in existing:
-                skipped += 1
-                continue
-            
             self.db.upsert_benchmark(
                 model_id=benchmark.model_id,
                 reasoning_score=benchmark.reasoning_score,
@@ -753,9 +770,12 @@ class BenchmarkBuilder:
                 elo_rating=benchmark.elo_rating,
                 archived=benchmark.archived,
             )
-            written += 1
+            if model_id in existing_ids:
+                updated += 1
+            else:
+                inserted += 1
         
-        logger.info(f"Wrote {written} new models, skipped {skipped} existing (force={force})")
+        logger.info(f"Inserted {inserted} new models, updated {updated} existing models")
     
     def _generate_aliases(self, models: dict[str, ModelBenchmark]) -> int:
         """

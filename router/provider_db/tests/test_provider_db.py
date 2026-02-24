@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 from router.provider_db.models import ModelBenchmark, AliasRecord, Metadata
 from router.provider_db.database import ProviderDB
 from router.provider_db.model_mapper import ModelMapper, model_mapper
+from router.provider_db.builder import BenchmarkBuilder
 
 
 # ==================== MODELS TESTS ====================
@@ -756,6 +757,324 @@ class TestSchemaValidation:
         
         # ELO should be INTEGER
         assert "INTEGER" in columns["elo_rating"].upper()
+
+
+# ==================== BUILDER TESTS ====================
+
+class TestBenchmarkBuilder:
+    """Tests for BenchmarkBuilder class."""
+
+    @pytest.fixture
+    def temp_db(self):
+        """Create a temporary database for testing."""
+        with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+            db_path = f.name
+        yield db_path
+        Path(db_path).unlink(missing_ok=True)
+
+    @pytest.fixture
+    def builder(self, temp_db):
+        """Create BenchmarkBuilder instance with temp file."""
+        return BenchmarkBuilder(temp_db)
+
+    def test_aggregate_scores_missing_general_uses_zero(self, builder):
+        """Test that missing general_score defaults to 0.0 (not 1000)."""
+        scores = {
+            "model1": {"reasoning": 85.0, "coding": 90.0},
+            # No general or elo
+        }
+        aggregated = builder._aggregate_scores(scores)
+        assert aggregated["model1"].general_score == 0.0
+        assert aggregated["model1"].reasoning_score == 85.0
+        assert aggregated["model1"].coding_score == 90.0
+        assert aggregated["model1"].elo_rating == 1000  # default
+
+    def test_aggregate_scores_missing_reasoning_uses_zero(self, builder):
+        """Test that missing reasoning_score defaults to 0.0."""
+        scores = {"model2": {"general": 75.0, "coding": 80.0}}
+        aggregated = builder._aggregate_scores(scores)
+        assert aggregated["model2"].reasoning_score == 0.0
+
+    def test_aggregate_scores_missing_coding_uses_zero(self, builder):
+        """Test that missing coding_score defaults to 0.0."""
+        scores = {"model3": {"reasoning": 70.0, "general": 65.0}}
+        aggregated = builder._aggregate_scores(scores)
+        assert aggregated["model3"].coding_score == 0.0
+
+    def test_aggregate_scores_with_elo(self, builder):
+        """Test that elo_rating is used when present."""
+        scores = {"model4": {"elo": 1250}}
+        aggregated = builder._aggregate_scores(scores)
+        assert aggregated["model4"].elo_rating == 1250
+
+    def test_aggregate_scores_without_elo_uses_default(self, builder):
+        """Test that missing elo_rating defaults to 1000."""
+        scores = {"model5": {"reasoning": 80.0}}
+        aggregated = builder._aggregate_scores(scores)
+        assert aggregated["model5"].elo_rating == 1000
+
+    @pytest.mark.asyncio
+    async def test_fetch_livebench_empty_counts_as_failure(self, builder, tmp_path):
+        """Test that empty LiveBench result increments sources_failed."""
+        # We'll patch only livebench to return empty; all others to minimal success.
+        # Prepare a dummy DB file
+        db_path = tmp_path / "test.db"
+        builder.db_path = db_path
+        builder.db = ProviderDB(db_path)
+
+        # Use mocks for all fetchers to avoid real network
+        async def mock_fetch_arena():
+            return {'elo': {'gpt-4': 1200}}
+        async def mock_fetch_lmsys():
+            return {'elo': {'gpt-4': 1250}}
+        async def mock_fetch_livebench():
+            return {}  # empty -> failure
+        async def mock_fetch_mmlu():
+            return {'general': {'gpt-4': 85.0}}
+        # For other fetchers we can return minimal non-empty
+        async def mock_fetch_mmlu_pro():
+            return {'general': {}}
+        async def mock_fetch_gsm8k():
+            return {'reasoning': {}}
+        async def mock_fetch_humaneval():
+            return {'coding': {}}
+        async def mock_fetch_arc():
+            return {'reasoning': {}}
+        async def mock_fetch_bbh():
+            return {'reasoning': {}}
+        async def mock_fetch_swebench():
+            return {'coding': {}}
+        async def mock_fetch_aider():
+            return {'coding': {}}
+        async def mock_fetch_agieval():
+            return {'reasoning': {}}
+        async def mock_fetch_mathvista():
+            return {'reasoning': {}}
+        async def mock_fetch_livecodebench():
+            return {'coding': {}}
+        async def mock_fetch_frontiermath():
+            return {'reasoning': {}}
+        async def mock_fetch_aime():
+            return {'reasoning': {}}
+        async def mock_fetch_scicode():
+            return {'coding': {}}
+        async def mock_fetch_megabench():
+            return {'general': {}}
+        async def mock_fetch_mixeval_x():
+            return {'general': {}}
+        async def mock_fetch_gpqa():
+            return {'reasoning': {}}
+        async def mock_fetch_stateval():
+            return {'reasoning': {}}
+        async def mock_fetch_chinese():
+            return {'general': {}}
+        async def mock_fetch_tool_use():
+            return {'coding': {}}
+        async def mock_fetch_vision():
+            return {'general': {}}
+        async def mock_fetch_ailuminate():
+            return {'general': {}}
+        async def mock_fetch_domain_specific():
+            return {'general': {}}
+        async def mock_fetch_helm():
+            return {'general': {}}
+        async def mock_fetch_bigcodebench():
+            return {'coding': {'gpt-4': 80.0}}
+
+        # Patch all fetcher functions inside _fetch_all_sources via monkeypatch
+        # Since those inner functions import specific modules, we patch at the module level:
+        patches = {
+            'router.provider_db.sources.arena.fetch_arena': mock_fetch_arena,
+            'router.provider_db.sources.lmsys_arena.fetch_lmsys_arena': mock_fetch_lmsys,
+            'router.provider_db.sources.livebench.fetch_livebench': mock_fetch_livebench,
+            'router.provider_db.sources.bigcodebench.fetch_bigcodebench': mock_fetch_bigcodebench,
+            'router.provider_db.sources.mmlu.fetch_mmlu': mock_fetch_mmlu,
+            'router.provider_db.sources.mmlu_pro.fetch_mmlu_pro': mock_fetch_mmlu_pro,
+            'router.provider_db.sources.gsm8k.fetch_gsm8k': mock_fetch_gsm8k,
+            'router.provider_db.sources.humaneval.fetch_humaneval': mock_fetch_humaneval,
+            'router.provider_db.sources.arc.fetch_arc': mock_fetch_arc,
+            'router.provider_db.sources.bbh.fetch_bbh': mock_fetch_bbh,
+            'router.provider_db.sources.swebench.fetch_swebench': mock_fetch_swebench,
+            'router.provider_db.sources.aider.fetch_aider': mock_fetch_aider,
+            'router.provider_db.sources.agieval.fetch_agieval': mock_fetch_agieval,
+            'router.provider_db.sources.mathvista.fetch_mathvista': mock_fetch_mathvista,
+            'router.provider_db.sources.livecodebench.fetch_livecodebench': mock_fetch_livecodebench,
+            'router.provider_db.sources.frontiermath.fetch_frontiermath': mock_fetch_frontiermath,
+            'router.provider_db.sources.aime.fetch_aime': mock_fetch_aime,
+            'router.provider_db.sources.scicode.fetch_scicode': mock_fetch_scicode,
+            'router.provider_db.sources.megabench.fetch_megabench': mock_fetch_megabench,
+            'router.provider_db.sources.mixeval_x.fetch_mixeval_x': mock_fetch_mixeval_x,
+            'router.provider_db.sources.gpqa.fetch_gpqa': mock_fetch_gpqa,
+            'router.provider_db.sources.stateval.fetch_stateval': mock_fetch_stateval,
+            'router.provider_db.sources.chinese.fetch_chinese': mock_fetch_chinese,
+            'router.provider_db.sources.tool_use.fetch_tool_use': mock_fetch_tool_use,
+            'router.provider_db.sources.vision.fetch_vision': mock_fetch_vision,
+            'router.provider_db.sources.ailuminate.fetch_ailuminate': mock_fetch_ailuminate,
+            'router.provider_db.sources.domain_specific.fetch_domain_specific': mock_fetch_domain_specific,
+            'router.provider_db.sources.helm.fetch_helm': mock_fetch_helm,
+        }
+
+        import unittest.mock as mock
+        patchers = [mock.patch(name, side_effect=func) for name, func in patches.items()]
+        for p in patchers:
+            p.start()
+
+        try:
+            # Run fetch all sources directly to check stats update
+            merged = await builder._fetch_all_sources()
+            # Verify LiveBench is marked as failed because it returned empty
+            assert 'livebench' in builder.stats['sources_failed']
+            assert 'livebench' not in builder.stats['sources_succeeded']
+        finally:
+            for p in patchers:
+                p.stop()
+
+    @pytest.mark.asyncio
+    async def test_fetch_bigcodebench_empty_counts_as_failure(self, builder, tmp_path):
+        """Test that empty BigCodeBench result increments sources_failed."""
+        db_path = tmp_path / "test.db"
+        builder.db_path = db_path
+        builder.db = ProviderDB(db_path)
+
+        async def mock_fetch_arena():
+            return {'elo': {'gpt-4': 1200}}
+        async def mock_fetch_lmsys():
+            return {'elo': {'gpt-4': 1250}}
+        async def mock_fetch_livebench():
+            return {'reasoning': {'gpt-4': 80.0}}
+        async def mock_fetch_bigcodebench():
+            return {}  # empty -> failure
+        async def mock_fetch_mmlu():
+            return {'general': {'gpt-4': 85.0}}
+        async def mock_fetch_mmlu_pro():
+            return {'general': {}}
+        async def mock_fetch_gsm8k():
+            return {'reasoning': {}}
+        async def mock_fetch_humaneval():
+            return {'coding': {}}
+        async def mock_fetch_arc():
+            return {'reasoning': {}}
+        async def mock_fetch_bbh():
+            return {'reasoning': {}}
+        async def mock_fetch_swebench():
+            return {'coding': {}}
+        async def mock_fetch_aider():
+            return {'coding': {}}
+        async def mock_fetch_agieval():
+            return {'reasoning': {}}
+        async def mock_fetch_mathvista():
+            return {'reasoning': {}}
+        async def mock_fetch_livecodebench():
+            return {'coding': {}}
+        async def mock_fetch_frontiermath():
+            return {'reasoning': {}}
+        async def mock_fetch_aime():
+            return {'reasoning': {}}
+        async def mock_fetch_scicode():
+            return {'coding': {}}
+        async def mock_fetch_megabench():
+            return {'general': {}}
+        async def mock_fetch_mixeval_x():
+            return {'general': {}}
+        async def mock_fetch_gpqa():
+            return {'reasoning': {}}
+        async def mock_fetch_stateval():
+            return {'reasoning': {}}
+        async def mock_fetch_chinese():
+            return {'general': {}}
+        async def mock_fetch_tool_use():
+            return {'coding': {}}
+        async def mock_fetch_vision():
+            return {'general': {}}
+        async def mock_fetch_ailuminate():
+            return {'general': {}}
+        async def mock_fetch_domain_specific():
+            return {'general': {}}
+        async def mock_fetch_helm():
+            return {'general': {}}
+
+        patches = {
+            'router.provider_db.sources.arena.fetch_arena': mock_fetch_arena,
+            'router.provider_db.sources.lmsys_arena.fetch_lmsys_arena': mock_fetch_lmsys,
+            'router.provider_db.sources.livebench.fetch_livebench': mock_fetch_livebench,
+            'router.provider_db.sources.bigcodebench.fetch_bigcodebench': mock_fetch_bigcodebench,
+            'router.provider_db.sources.mmlu.fetch_mmlu': mock_fetch_mmlu,
+            'router.provider_db.sources.mmlu_pro.fetch_mmlu_pro': mock_fetch_mmlu_pro,
+            'router.provider_db.sources.gsm8k.fetch_gsm8k': mock_fetch_gsm8k,
+            'router.provider_db.sources.humaneval.fetch_humaneval': mock_fetch_humaneval,
+            'router.provider_db.sources.arc.fetch_arc': mock_fetch_arc,
+            'router.provider_db.sources.bbh.fetch_bbh': mock_fetch_bbh,
+            'router.provider_db.sources.swebench.fetch_swebench': mock_fetch_swebench,
+            'router.provider_db.sources.aider.fetch_aider': mock_fetch_aider,
+            'router.provider_db.sources.agieval.fetch_agieval': mock_fetch_agieval,
+            'router.provider_db.sources.mathvista.fetch_mathvista': mock_fetch_mathvista,
+            'router.provider_db.sources.livecodebench.fetch_livecodebench': mock_fetch_livecodebench,
+            'router.provider_db.sources.frontiermath.fetch_frontiermath': mock_fetch_frontiermath,
+            'router.provider_db.sources.aime.fetch_aime': mock_fetch_aime,
+            'router.provider_db.sources.scicode.fetch_scicode': mock_fetch_scicode,
+            'router.provider_db.sources.megabench.fetch_megabench': mock_fetch_megabench,
+            'router.provider_db.sources.mixeval_x.fetch_mixeval_x': mock_fetch_mixeval_x,
+            'router.provider_db.sources.gpqa.fetch_gpqa': mock_fetch_gpqa,
+            'router.provider_db.sources.stateval.fetch_stateval': mock_fetch_stateval,
+            'router.provider_db.sources.chinese.fetch_chinese': mock_fetch_chinese,
+            'router.provider_db.sources.tool_use.fetch_tool_use': mock_fetch_tool_use,
+            'router.provider_db.sources.vision.fetch_vision': mock_fetch_vision,
+            'router.provider_db.sources.ailuminate.fetch_ailuminate': mock_fetch_ailuminate,
+            'router.provider_db.sources.domain_specific.fetch_domain_specific': mock_fetch_domain_specific,
+            'router.provider_db.sources.helm.fetch_helm': mock_fetch_helm,
+        }
+
+        import unittest.mock as mock
+        patchers = [mock.patch(name, side_effect=func) for name, func in patches.items()]
+        for p in patchers:
+            p.start()
+
+        try:
+            merged = await builder._fetch_all_sources()
+            assert 'bigcodebench' in builder.stats['sources_failed']
+            assert 'bigcodebench' not in builder.stats['sources_succeeded']
+        finally:
+            for p in patchers:
+                p.stop()
+
+    @pytest.mark.asyncio
+    async def test_write_to_db_updates_existing(self, builder, tmp_path):
+        """Test that _write_to_db updates existing models on every build."""
+        db_path = tmp_path / "test.db"
+        builder.db_path = db_path
+        builder.db = ProviderDB(db_path)
+        builder.db.initialize()
+        
+        # Insert initial benchmark
+        builder.db.upsert_benchmark(
+            model_id="test/model",
+            reasoning_score=50.0,
+            coding_score=60.0,
+            general_score=70.0,
+            elo_rating=1000
+        )
+        
+        # Prepare updated aggregated data
+        new_models = {
+            "test/model": ModelBenchmark(
+                model_id="test/model",
+                reasoning_score=80.0,
+                coding_score=90.0,
+                general_score=85.0,
+                elo_rating=1200,
+                archived=False
+            )
+        }
+        
+        await builder._write_to_db(new_models, force=False)
+        
+        # Verify updates
+        result = builder.db.get_benchmark("test/model")
+        assert result is not None
+        assert result["reasoning_score"] == 80.0
+        assert result["coding_score"] == 90.0
+        assert result["general_score"] == 85.0
+        assert result["elo_rating"] == 1200
 
 
 if __name__ == "__main__":
