@@ -34,6 +34,7 @@ The router's scoring formula expects these specific benchmark sources:
 - **coding_score**: BigCodeBench (not SWE-bench + LCB + EvalPlus)
 - **general_score**: MMLU (not Arena overall)
 - **elo_rating**: LMSYS Chatbot Arena (not arena.ai)
+- **Chinese-specific benchmarks**: Chinese reasoning (C-MATH), Chinese coding (Chinese programming evaluation), Chinese ELO estimation (for models not in LMSYS)
 
 **Correction**: The earlier design used Arena.ai as an Elo source. The actual router expects **LMSYS Chatbot Arena** ELO ratings.
 

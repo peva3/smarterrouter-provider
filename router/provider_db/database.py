@@ -31,6 +31,8 @@ class ProviderDB:
     
     @contextmanager
     def _get_connection(self):
+        # Ensure parent directory exists
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
         conn = sqlite3.connect(str(self.db_path))
         conn.row_factory = sqlite3.Row
         try:

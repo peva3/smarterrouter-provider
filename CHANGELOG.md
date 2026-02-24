@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **GPQA** - Graduate-level science reasoning
 - **StatEval** - Comprehensive statistics benchmark
 - **Chinese benchmarks** - C-Eval, C-MMLU, Chinese-SimpleQA
+- **Chinese reasoning, coding, and ELO estimation** - Enhanced Chinese model evaluation with specialized benchmarks
 - **Tool Use benchmarks** - BFCL function calling
 - **Vision benchmarks** - MMMU, MMBench multimodal
 - **AILuminate** - AI risk/reliability benchmark

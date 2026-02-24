@@ -18,7 +18,12 @@ def fetch_bigcodebench() -> Dict[str, float]:
         from datasets import load_dataset
         
         datasets_to_try = [
-            ("bigcode/bigcodebench", "test"),
+            ("bigcode/bigcodebench-results", "train"),  # Results dataset with scores
+            ("bigcode/bigcodebench", "v0.1.4"),  # Main dataset
+            ("bigcode/bigcodebench", "v0.1.3"),
+            ("bigcode/bigcodebench", "v0.1.2"),
+            ("bigcode/bigcodebench", "v0.1.1"),
+            ("bigcode/bigcodebench", "v0.1.0_hf"),
         ]
         
         for ds_name, split in datasets_to_try:
@@ -27,9 +32,9 @@ def fetch_bigcodebench() -> Dict[str, float]:
                 if ds and len(ds) > 0:
                     scores = _extract_scores(ds)
                     if scores:
-                        print(f"BigCodeBench: {len(scores)} coding scores ({ds_name})")
+                        print(f"BigCodeBench: {len(scores)} coding scores ({ds_name}/{split})")
                         return scores
-            except Exception:
+            except Exception as e:
                 continue
         
     except ImportError:
@@ -48,7 +53,7 @@ def _extract_scores(dataset) -> Dict[str, float]:
     # Check column names
     columns = getattr(dataset, 'column_names', [])
     model_col = next((c for c in columns if "model" in c.lower()), None)
-    score_col = next((c for c in columns if any(s in c.lower() for s in ["score", "pass", "accuracy"])), None)
+    score_col = next((c for c in columns if any(s in c.lower() for s in ["score", "pass", "accuracy", "complete", "instruct"])), None)
     
     if model_col and score_col:
         for item in dataset:
@@ -71,7 +76,7 @@ def _extract_scores(dataset) -> Dict[str, float]:
         # Fallback: try common field names
         for item in dataset:
             name = item.get("model") or item.get("model_name")
-            score = item.get("score") or item.get("pass_rate") or item.get("pass@1")
+            score = item.get("score") or item.get("pass_rate") or item.get("pass@1") or item.get("complete") or item.get("instruct")
             if name and score is not None:
                 try:
                     s = float(score)

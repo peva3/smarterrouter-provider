@@ -41,7 +41,13 @@ def setup_logging(verbose: bool = False):
 
 def get_default_db_path() -> Path:
     """Get default database path."""
-    return Path(__file__).parent.parent.parent / "provider.db"
+    # Docker-compatible default: /app/data/provider.db
+    # Also supports local development: ./data/provider.db
+    data_dir_path = Path.cwd() / "data" / "provider.db"
+    root_path = Path.cwd() / "provider.db"
+    
+    # Prefer data directory path (Docker default)
+    return data_dir_path
 
 
 async def cmd_build(args):

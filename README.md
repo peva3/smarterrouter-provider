@@ -2,7 +2,7 @@
 
 **Builds `provider.db` - a comprehensive benchmark database that powers intelligent model routing in SmarterRouter.**
 
-This project automatically collects benchmark scores from 33+ sources, applies intelligent heuristics for uncovered models, and produces a SQLite database with **100% coverage** of all OpenRouter models. The database integrates seamlessly with SmarterRouter's RouterEngine to enable automatic model selection based on reasoning, coding, and general knowledge capabilities.
+This project automatically collects benchmark scores from 36+ sources, applies intelligent heuristics for uncovered models, and produces a SQLite database with **100% coverage** of all OpenRouter models. The database integrates seamlessly with SmarterRouter's RouterEngine to enable automatic model selection based on reasoning, coding, and general knowledge capabilities.
 
 ## ✨ Features
 
@@ -24,12 +24,18 @@ This project automatically collects benchmark scores from 33+ sources, applies i
 # Build Docker image
 docker build -t provider-db-builder .
 
-# Generate database
+# Generate database (set OPENROUTER_API_KEY for full model list)
 mkdir -p data
 docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest
+# Or with API key: docker run --rm -v $(pwd)/data:/app/data -e OPENROUTER_API_KEY=sk-xxx provider-db-builder:latest
 
 # Validate for SmarterRouter
-python -m router.provider_db.cli validate --db-path data/provider.db
+docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest validate
+
+# Alternative using Docker Compose
+docker compose build
+docker compose run provider-db
+# With API key: OPENROUTER_API_KEY=sk-xxx docker compose run provider-db
 ```
 
 ## 📊 Coverage
@@ -46,17 +52,60 @@ python -m router.provider_db.cli validate --db-path data/provider.db
 
 ## 🔧 CLI Commands
 
+### Local Installation
 ```bash
-python -m router.provider_db.cli build      # Build database
-python -m router.provider_db.cli stats      # Show statistics
-python -m router.provider_db.cli health     # Check health
-python -m router.provider_db.cli validate   # SmarterRouter compatibility
-python -m router.provider_db.cli inspect <model_id>  # View model scores
+python -m router.provider_db build      # Build database
+python -m router.provider_db stats      # Show statistics
+python -m router.provider_db health     # Check health
+python -m router.provider_db validate   # SmarterRouter compatibility
+python -m router.provider_db inspect <model_id>  # View model scores
+```
+
+### Docker Commands
+```bash
+# Build database (set OPENROUTER_API_KEY for full model list)
+docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest
+# Or with API key: docker run --rm -v $(pwd)/data:/app/data -e OPENROUTER_API_KEY=sk-xxx provider-db-builder:latest
+
+# Validate database
+docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest validate
+
+# Show statistics
+docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest stats
+
+# Check health
+docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest health
+
+# Inspect specific model
+docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest inspect <model_id>
+
+# Using Docker Compose
+docker compose build
+docker compose run provider-db              # Build database
+# With API key: OPENROUTER_API_KEY=sk-xxx docker compose run provider-db
+docker compose run provider-db validate     # Validate
+docker compose run provider-db inspect <model_id>  # Inspect
+```
+
+### Helper Script
+```bash
+# Make script executable
+chmod +x docker-build.sh
+
+# Build image and run database build (set OPENROUTER_API_KEY for full model list)
+./docker-build.sh build ./data
+# With API key: OPENROUTER_API_KEY=sk-xxx ./docker-build.sh build ./data
+
+# Open interactive shell in container
+./docker-build.sh shell
+
+# Show help
+./docker-build.sh help
 ```
 
 ## 📦 What's Inside
 
-**33 Benchmark Sources** including:
+**36 Benchmark Sources** including:
 - **LMSYS Chatbot Arena** (ELO)
 - **LiveBench** (reasoning)
 - **BigCodeBench** (coding)
@@ -65,7 +114,8 @@ python -m router.provider_db.cli inspect <model_id>  # View model scores
 - **GSM8K, ARC, BBH, MathVista, AGIEval** (reasoning variants)
 - **FrontierMath, AIME, SciCode** (advanced math/coding)
 - **MEGA-Bench, MixEval-X** (multimodal)
-- **Chinese benchmarks, Tool Use, Vision**
+- **Chinese benchmarks** (C-Eval, C-MMLU, Chinese reasoning, Chinese coding, Chinese ELO)
+- **Tool Use, Vision**
 - **AILuminate, Domain-Specific, HELM**
 - **Hendrycks MATH** (advanced math reasoning)
 - **HellaSwag** (commonsense reasoning)

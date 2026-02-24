@@ -86,6 +86,9 @@ SOURCE_BASE_WEIGHTS: dict[str, float] = {
     'mmlu_pro': 0.9,
     'mixeval_x': 0.9,
     'chinese': 0.8,
+    'chinese_reasoning': 0.8,
+    'chinese_coding': 0.8,
+    'chinese_elo': 0.7,
     'ailuminate': 0.8,
     'megabench': 0.8,
     'helm': 0.8,
@@ -317,6 +320,22 @@ class BenchmarkBuilder:
                 self.stats['sources_failed'].append('arena')
                 return {'elo': {}}
         
+        @rate_limited(self.rate_limiter)
+        async def fetch_chinese_elo():
+            """Chinese ELO estimation (for Chinese models not in LMSYS)."""
+            try:
+                from .sources import chinese_elo
+                self.stats['sources_attempted'].append('chinese_elo')
+                result = await asyncio.to_thread(chinese_elo.fetch_chinese_elo)
+                if result:
+                    self.stats['sources_succeeded'].append('chinese_elo')
+                    logger.info(f"Chinese ELO: fetched {len(result)} ELO ratings")
+                return {'elo': result}
+            except Exception as e:
+                logger.error(f"Chinese ELO fetch failed: {e}")
+                self.stats['sources_failed'].append('chinese_elo')
+                return {'elo': {}}
+        
         # ============ REASONING SOURCES ============
         @rate_limited(self.rate_limiter)
 
@@ -535,6 +554,22 @@ class BenchmarkBuilder:
                 self.stats['sources_failed'].append('hellaswag')
                 return {'reasoning': {}}
         
+        @rate_limited(self.rate_limiter)
+        async def fetch_chinese_reasoning():
+            """Chinese reasoning benchmarks (C-MATH, etc.)."""
+            try:
+                from .sources import chinese_reasoning
+                self.stats['sources_attempted'].append('chinese_reasoning')
+                result = await asyncio.to_thread(chinese_reasoning.fetch_chinese_reasoning)
+                if result:
+                    self.stats['sources_succeeded'].append('chinese_reasoning')
+                    logger.info(f"Chinese reasoning: fetched {len(result)} reasoning scores")
+                return {'reasoning': result}
+            except Exception as e:
+                logger.error(f"Chinese reasoning fetch failed: {e}")
+                self.stats['sources_failed'].append('chinese_reasoning')
+                return {'reasoning': {}}
+        
         # ============ CODING SOURCES ============
         @rate_limited(self.rate_limiter)
 
@@ -661,6 +696,22 @@ class BenchmarkBuilder:
             except Exception as e:
                 logger.error(f"Tool Use fetch failed: {e}")
                 self.stats['sources_failed'].append('tool_use')
+                return {'coding': {}}
+        
+        @rate_limited(self.rate_limiter)
+        async def fetch_chinese_coding():
+            """Chinese coding benchmarks (Chinese programming evaluation)."""
+            try:
+                from .sources import chinese_coding
+                self.stats['sources_attempted'].append('chinese_coding')
+                result = await asyncio.to_thread(chinese_coding.fetch_chinese_coding)
+                if result:
+                    self.stats['sources_succeeded'].append('chinese_coding')
+                    logger.info(f"Chinese coding: fetched {len(result)} coding scores")
+                return {'coding': result}
+            except Exception as e:
+                logger.error(f"Chinese coding fetch failed: {e}")
+                self.stats['sources_failed'].append('chinese_coding')
                 return {'coding': {}}
         
         # ============ GENERAL (KNOWLEDGE) SOURCES ============
@@ -917,6 +968,9 @@ class BenchmarkBuilder:
             ('mmlu_pro', fetch_mmlu_pro),
             ('mixeval_x', fetch_mixeval_x),
             ('chinese', fetch_chinese),
+            ('chinese_reasoning', fetch_chinese_reasoning),
+            ('chinese_coding', fetch_chinese_coding),
+            ('chinese_elo', fetch_chinese_elo),
             ('ailuminate', fetch_ailuminate),
             ('megabench', fetch_megabench),
             ('helm', fetch_helm),

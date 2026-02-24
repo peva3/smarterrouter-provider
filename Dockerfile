@@ -28,4 +28,4 @@ ENV PYTHONUNBUFFERED=1
 
 # Default command
 ENTRYPOINT ["python", "-m", "router.provider_db"]
-CMD ["build", "-o", "/app/data/provider.db"]
+CMD ["build"]

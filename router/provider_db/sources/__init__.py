@@ -32,6 +32,10 @@ __all__ = [
     'fetch_ailuminate',
     'fetch_domain_specific',
     'fetch_helm',
+    'fetch_multilingual',
+    'fetch_chinese_reasoning',
+    'fetch_chinese_coding',
+    'fetch_chinese_elo',
     'estimate_scores',
     'fetch_heuristics',
 ]
@@ -102,6 +106,18 @@ def __getattr__(name):
     elif name == 'fetch_chinese':
         from .chinese import fetch_chinese
         return fetch_chinese
+    elif name == 'fetch_multilingual':
+        from .multilingual import fetch_multilingual
+        return fetch_multilingual
+    elif name == 'fetch_chinese_reasoning':
+        from .chinese_reasoning import fetch_chinese_reasoning
+        return fetch_chinese_reasoning
+    elif name == 'fetch_chinese_coding':
+        from .chinese_coding import fetch_chinese_coding
+        return fetch_chinese_coding
+    elif name == 'fetch_chinese_elo':
+        from .chinese_elo import fetch_chinese_elo
+        return fetch_chinese_elo
     elif name == 'fetch_tool_use':
         from .tool_use import fetch_tool_use
         return fetch_tool_use
