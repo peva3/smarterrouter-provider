@@ -1,0 +1,29 @@
+# Example crontab setup for automated provider.db builds and GitHub pushes
+# 
+# This assumes:
+# - Docker image is built and available as provider-db-builder:latest
+# - GitHub repo is cloned to /path/to/provider
+# - GitHub credentials are configured (SSH key or token in github_token)
+# - Container has access to any needed API keys if required
+#
+# Time zone: EST (UTC-5). Adjust cron hours accordingly if in different timezone.
+
+# Build provider.db at 10:00 AM EST (15:00 UTC)
+0 15 * * * cd /path/to/provider && docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest
+
+# Build provider.db at 10:00 PM EST (03:00 UTC)
+0 3 * * * cd /path/to/provider && docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest
+
+# Push to GitHub at midnight EST (05:00 UTC) - only on weekdays (Mon-Fri)
+# Uncomment if you want automated pushes (or handle manually)
+# 0 5 * * 1-5 cd /path/to/provider && git add data/provider.db data/provider.db.sha256 && git commit -m "Auto-update provider.db $(date +\%Y-\%m-\%d)" && git push origin main
+
+# Alternatively, push after each build (if you want immediate GitHub updates):
+# 0 15 * * * cd /path/to/provider && docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest && git add data/provider.db data/provider.db.sha256 && git diff --cached --quiet || git commit -m "Update provider.db ($(date +\%H:%M\ UTC))" && git push origin main
+# 0 3 * * * cd /path/to/provider && docker run --rm -v $(pwd)/data:/app/data provider-db-builder:latest && git add data/provider.db data/provider.db.sha256 && git diff --cached --quiet || git commit -m "Update provider.db ($(date +\%H:%M\ UTC))" && git push origin main
+
+# Notes:
+# - The `git diff --cached --quiet` check prevents empty commits
+# - You may need to set up git credentials in the crontab environment
+# - Consider logging: append `>> /var/log/provider-db-cron.log 2>&1` to each line
+# - The Docker image should be rebuilt if source code changes: `docker build -t provider-db-builder:latest .`

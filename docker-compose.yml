@@ -1,0 +1,18 @@
+services:
+  provider-db:
+    build: .
+    command: build -o /app/data/provider.db
+    volumes:
+      - ./data:/app/data
+    restart: "no"
+
+  # Optional: scheduled builder using cron (requires cron in container)
+  # scheduler:
+  #   build: .
+  #   command: ["sh", "-c", "while true; do python -m router.provider_db build -o /app/data/provider.db; sleep $${SCHEDULE_INTERVAL:-604800}; done"]
+  #   environment:
+  #     - SCHEDULE_INTERVAL=${SCHEDULE_INTERVAL:-604800}
+  #   volumes:
+  #     - ./data:/app/data
+  #   restart: unless-stopped
+  #   profiles: ["scheduler"]
