@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any
 from contextlib import contextmanager
 import json
+from datetime import datetime, timezone
 from datetime import datetime
 
 from .models import ModelBenchmark, AliasRecord, Metadata
@@ -112,7 +113,7 @@ class ProviderDB:
             INSERT OR REPLACE INTO model_benchmarks
             (model_id, reasoning_score, coding_score, general_score, elo_rating, last_updated, archived)
             VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (sanitized_id, validated_reasoning, validated_coding, validated_general, validated_elo, datetime.utcnow(), int(archived)))
+            """, (sanitized_id, validated_reasoning, validated_coding, validated_general, validated_elo, datetime.now(timezone.utc), int(archived)))
             conn.commit()
     
     def get_benchmark(self, model_id: str) -> Optional[Dict[str, Any]]:

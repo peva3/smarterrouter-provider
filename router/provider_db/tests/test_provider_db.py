@@ -6,7 +6,7 @@ Run with: pytest router/provider_db/tests/ -v
 import pytest
 import tempfile
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import Mock, patch, AsyncMock
 from typing import Dict, Any
@@ -39,7 +39,7 @@ class TestModelBenchmark:
     
     def test_custom_values(self):
         """Test custom values are accepted."""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         model = ModelBenchmark(
             model_id="openai/gpt-4",
             reasoning_score=85.5,
