@@ -1,0 +1,118 @@
+[
+  {
+    "id": "DBbun/synthetic-llm-evaluation-traces",
+    "author": "DBbun",
+    "lastModified": "2026-01-21 20:47:34+00:00",
+    "downloads": 107,
+    "likes": 0,
+    "tags": [
+      "task_categories:text-generation",
+      "task_categories:feature-extraction",
+      "license:apache-2.0",
+      "region:us",
+      "synthetic-data",
+      "llm",
+      "evaluation",
+      "nlp",
+      "benchmark",
+      "human-feedback",
+      "pairwise-comparison",
+      "leaderboard",
+      "ai-evaluation",
+      "simulation"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEvaluLLM-Inspired Synthetic Evaluation Traces (DBbun)\n\t\n\nView source code on GitHub\nWatch on Youtube: Evaluating AI with AI\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nThis dataset contains fully synthetic evaluation traces for NLG / LLM-style output comparison, inspired by the evaluation workflow described in EvaluLLM: LLM Assisted Evaluation of Generative Outputs (IUI Companion 2024).\nThe dataset is produced by a configurable, offline simulator and includes:\n\nsynthetic tasks (prompts)\nsynthetic\u2026 See the full description on the dataset page: https://huggingface.co/datasets/DBbun/synthetic-llm-evaluation-traces.",
+    "search_query": "llm evaluation",
+    "benchmark_score": 4
+  },
+  {
+    "id": "Reza-Telus/certainty-robustness-llm-evaluation",
+    "author": "Reza-Telus",
+    "lastModified": "2026-02-09 22:37:47+00:00",
+    "downloads": 120,
+    "likes": 0,
+    "tags": [
+      "license:apache-2.0",
+      "size_categories:n<1K",
+      "format:json",
+      "modality:document",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tCertainty Robustness Benchmark\n\t\n\n\n\t\n\t\t\n\t\tOverview\n\t\n\nThis repository accompanies the research paper:\nCertainty Robustness: Evaluating LLM Stability Under Self-Challenging Prompts\nThe Certainty Robustness Benchmark evaluates how large language models (LLMs) respond when their initial answers are challenged by follow-up prompts such as \u201cAre you sure?\u201d. Rather than focusing only on raw accuracy, the benchmark measures answer stability, self-correction behavior, and confidence\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Reza-Telus/certainty-robustness-llm-evaluation.",
+    "search_query": "llm evaluation",
+    "benchmark_score": 2
+  },
+  {
+    "id": "QuantaSparkLabs/colab-strong-benchmark-reasoning",
+    "author": "QuantaSparkLabs",
+    "lastModified": "2026-01-28 14:38:56+00:00",
+    "downloads": 83,
+    "likes": 0,
+    "tags": [
+      "task_categories:question-answering",
+      "task_categories:text-classification",
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:1M<n<10M",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tColab Strong Benchmark: Reasoning & Trap (1.15GB Version)\n\t\n\nA large-scale reasoning benchmark dataset with 2,875,000 carefully crafted questions containing logical traps and challenges.\n\n\t\n\t\t\n\t\t\u2615 Dataset Statistics\n\t\n\n\n\t\n\t\t\n\t\t\ud83d\udcca Dataset Visualizations\n\t\n\n\n\t\n\t\t\nTopic\nPlot\n\n\n\t\t\nCategory Distribution\n\n\n\nDifficulty Distribution\n\n\n\nQuestion Length Distribution\n\n\n\nTrap Inclusion Distribution\n\nTotal Samples: 2,875,000\nTotal Size: 1.164 GB\nNumber of Shards: 58\nCategories: logical_reasoning\u2026 See the full description on the dataset page: https://huggingface.co/datasets/QuantaSparkLabs/colab-strong-benchmark-reasoning.",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 2
+  },
+  {
+    "id": "climate-nlp/multimodal-oil-gas-benchmark",
+    "author": "climate-nlp",
+    "lastModified": "2025-10-07 03:56:19+00:00",
+    "downloads": 49,
+    "likes": 0,
+    "tags": [
+      "task_categories:video-classification",
+      "language:en",
+      "language:ja",
+      "license:cc-by-nc-4.0",
+      "size_categories:n<1K",
+      "modality:video",
+      "region:us",
+      "multimodal",
+      "greenwashing",
+      "climate",
+      "environment",
+      "video",
+      "advertisement",
+      "llm"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for Dataset Name\n\t\n\nThis is a dataset to reproduce our work, \"A Multimodal Benchmark for Framing of Oil & Gas Advertising and Potential Greenwashing Detection\", accepted to NeurIPS 2025 Benchmarks and Datasets Track.\n\n\t\n\t\t\n\t\tDataset Details\n\t\n\n\n\t\n\t\t\n\t\tDataset Sources [optional]\n\t\n\n\n\n\nRepository: https://github.com/climate-nlp/multimodal-oil-gas-benchmark\nPaper: A Multimodal Benchmark for Framing of Oil & Gas Advertising and Potential Greenwashing Detection (NeurIPS 2025)\u2026 See the full description on the dataset page: https://huggingface.co/datasets/climate-nlp/multimodal-oil-gas-benchmark.",
+    "search_query": "multimodal benchmark",
+    "benchmark_score": 2
+  },
+  {
+    "id": "Krisztian1994/functional-reasoning-benchmark-framework",
+    "author": "Krisztian1994",
+    "lastModified": "2026-02-10 11:57:37+00:00",
+    "downloads": 36,
+    "likes": 0,
+    "tags": [
+      "task_categories:text-generation",
+      "language:en",
+      "license:cc",
+      "size_categories:n<1K",
+      "region:us",
+      "agent"
+    ],
+    "description": "\n\t\n\t\t\n\t\tA Functional Benchmark for Long-Horizon Reasoning Models\n\t\n\nFraming:\nThis benchmark evaluates language models as \u201estateful agents operating over time\u201d, rather than as isolated prompt\u2013response systems. The goal is to measure how well models sustain reasoning, manage evolving state, and operate efficiently under realistic workloads. The proposal is intentionally scoped as a design framework. We expect task instantiation and scoring calibration to be collaborative efforts led by benchmark\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Krisztian1994/functional-reasoning-benchmark-framework.",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 2
+  }
+]

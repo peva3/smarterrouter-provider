@@ -35,12 +35,11 @@ class ModelMapper:
         "bigscience": "bigscience",
         "tiiuae": "tiiuae",
         "allenai": "allenai",
-        " NousResearch": "nousresearch",
+        "nousresearch": "nousresearch",
         "cognitivecomputations": "cognitivecomputations",
         "huggingface": "huggingface",
         "openchat": "openchat",
-        " WizardLM": "wizardlm",
-        " NousResearch": "nousresearch",
+        "wizardlm": "wizardlm",
         "lmsys": "lmsys",
         "gryphe": "gryphe",
         "microsoft": "microsoft",
@@ -49,7 +48,7 @@ class ModelMapper:
         "sophosympatheia": "sophosympatheia",
         "rokmr": "rokmr",
         "nepsys": "nepsys",
-        " BLUE": "blue",
+        "blue": "blue",
         "skepsun": "skepsun",
         "ravenous": "ravenous",
         "azure": "azure-openai",
@@ -146,6 +145,19 @@ class ModelMapper:
         "claude-3-5-sonnet-20241022": "anthropic/claude-3.5-sonnet-20241022",
         "llama-3-70b-instruct": "meta-llama/llama-3-70b-instruct",
         "llama-3-8b-instruct": "meta-llama/llama-3-8b-instruct",
+        
+        # MATH benchmark specific names
+        "gemini 2.0 flash experimental": "google/gemini-2.0-flash-exp",
+        "gemini-2.0-flash-experimental": "google/gemini-2.0-flash-exp",
+        "qwen2.5-math-72b-instruct": "qwen/qwen-2.5-72b-instruct",
+        "qwen2.5-math-7b-instruct": "qwen/qwen-2.5-7b-instruct",
+        "qwen2.5-math-1.5b-instruct": "qwen/qwen-2.5-7b-instruct",  # Approximate
+        "qwen2-math-72b-instruct": "qwen/qwen-2-72b",
+        "gpt-4-code model": "openai/gpt-4",
+        "gpt-4-turbo (macm, w/code, voting)": "openai/gpt-4-turbo",
+        "openmath2-llama3.1-70b": "meta-llama/llama-3.1-70b-instruct",
+        "openmath2-llama3.1-8b": "meta-llama/llama-3.1-8b-instruct",
+        "cr (gpt-4-turbo model, w/ code)": "openai/gpt-4-turbo",
     }
     
     def to_canonical(self, name: str) -> Optional[str]:
@@ -187,11 +199,6 @@ class ModelMapper:
                     model_part = normalized[len(known_prefix):].lstrip("-")
                     if model_part:
                         return f"{known_provider}/{model_part}"
-        
-        # Try fuzzy matching on known aliases
-        for alias, canonical in self.KNOWN_ALIASES.items():
-            if alias in normalized or normalized in alias:
-                return canonical
         
         return None
     

@@ -18,8 +18,6 @@ class ModelBenchmark(BaseModel):
     coding_score: float = Field(default=0.0, ge=0.0, le=100.0, description="From BigCodeBench, 0-100")
     general_score: float = Field(default=0.0, ge=0.0, le=100.0, description="From MMLU, 0-100")
     elo_rating: int = Field(default=1000, ge=1000, description="From LMSYS Arena, raw 1000+")
-    last_updated: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    archived: bool = Field(default=False, description="True if model no longer exists in OpenRouter")
 
 
 class AliasRecord(BaseModel):

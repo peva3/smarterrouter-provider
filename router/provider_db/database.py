@@ -27,20 +27,7 @@ class ProviderDB:
         """Create tables if they don't exist."""
         with self._get_connection() as conn:
             self._create_schema(conn)
-            # Handle migrations for existing databases
-            self._migrate_schema(conn)
             conn.commit()
-    
-    def _migrate_schema(self, conn: sqlite3.Connection) -> None:
-        """Migrate existing database to add new columns."""
-        cursor = conn.cursor()
-        
-        # Add archived column if it doesn't exist
-        cursor.execute("PRAGMA table_info(model_benchmarks)")
-        columns = [row[1] for row in cursor.fetchall()]
-        
-        if 'archived' not in columns:
-            cursor.execute("ALTER TABLE model_benchmarks ADD COLUMN archived INTEGER NOT NULL DEFAULT 0")
     
     @contextmanager
     def _get_connection(self):
@@ -51,20 +38,66 @@ class ProviderDB:
         finally:
             conn.close()
     
-    def _create_schema(self, conn: sqlite3.Connection) -> None:
-        """Create schema matching RouterEngine expectations."""
+    def _migrate_old_schema_if_needed(self, conn: sqlite3.Connection) -> None:
+        """Migrate from old schema with last_updated and archived columns."""
         cursor = conn.cursor()
         
-        # PRIMARY TABLE: model_benchmarks
+        # Check if old columns exist
+        cursor.execute("PRAGMA table_info(model_benchmarks)")
+        columns = [row[1] for row in cursor.fetchall()]
+        
+        if 'last_updated' not in columns and 'archived' not in columns:
+            # Already migrated
+            return
+        
+        print(f"Migrating old schema with columns: {columns}")
+        
+        # Drop view first (depends on old table)
+        cursor.execute("DROP VIEW IF EXISTS router_compatibility_view")
+        
+        # Create new table without old columns
+        cursor.execute("""
+        CREATE TABLE model_benchmarks_new (
+            model_id TEXT PRIMARY KEY,
+            reasoning_score REAL,
+            coding_score REAL,
+            general_score REAL,
+            elo_rating INTEGER
+        )
+        """)
+        
+        # Copy data, ignoring last_updated and archived columns
+        cursor.execute("""
+        INSERT INTO model_benchmarks_new 
+        (model_id, reasoning_score, coding_score, general_score, elo_rating)
+        SELECT model_id, reasoning_score, coding_score, general_score, elo_rating
+        FROM model_benchmarks
+        """)
+        
+        # Drop old table
+        cursor.execute("DROP TABLE model_benchmarks")
+        
+        # Rename new table
+        cursor.execute("ALTER TABLE model_benchmarks_new RENAME TO model_benchmarks")
+        
+        # Recreate index
+        cursor.execute("CREATE INDEX IF NOT EXISTS idx_model_id ON model_benchmarks(model_id)")
+        
+        print("Migration completed successfully")
+
+    def _create_schema(self, conn: sqlite3.Connection) -> None:
+        """Create schema matching RouterEngine expectations."""
+        self._migrate_old_schema_if_needed(conn)
+        cursor = conn.cursor()
+        
+        # PRIMARY TABLE: model_benchmarks - Exact schema RouterEngine expects
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS model_benchmarks (
             model_id TEXT PRIMARY KEY,
-            reasoning_score REAL NOT NULL DEFAULT 0.0,
-            coding_score REAL NOT NULL DEFAULT 0.0,
-            general_score REAL NOT NULL DEFAULT 0.0,
-            elo_rating INTEGER NOT NULL DEFAULT 1000,
-            last_updated TIMESTAMP NOT NULL,
-            archived INTEGER NOT NULL DEFAULT 0
+            reasoning_score REAL,
+            coding_score REAL,
+            general_score REAL,
+            elo_rating INTEGER
         )
         """)
         
@@ -100,8 +133,8 @@ class ProviderDB:
             coding_score,
             general_score,
             elo_rating,
-            last_updated,
-            archived
+            NULL as last_updated,
+            0 as archived
         FROM model_benchmarks
         """)
     
@@ -109,7 +142,7 @@ class ProviderDB:
     
     def upsert_benchmark(self, model_id: str, reasoning_score: float = 0.0,
                         coding_score: float = 0.0, general_score: float = 0.0,
-                        elo_rating: int = 1000, archived: bool = False) -> None:
+                        elo_rating: int = 1000) -> None:
         """Insert or update a model benchmark with validation."""
         from .utils import sanitize_model_id, validate_score_range, validate_elo_rating
         
@@ -126,9 +159,9 @@ class ProviderDB:
             cursor = conn.cursor()
             cursor.execute("""
             INSERT OR REPLACE INTO model_benchmarks
-            (model_id, reasoning_score, coding_score, general_score, elo_rating, last_updated, archived)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-            """, (sanitized_id, validated_reasoning, validated_coding, validated_general, validated_elo, datetime.now(timezone.utc), int(archived)))
+            (model_id, reasoning_score, coding_score, general_score, elo_rating)
+            VALUES (?, ?, ?, ?, ?)
+            """, (sanitized_id, validated_reasoning, validated_coding, validated_general, validated_elo))
             conn.commit()
     
     def get_benchmark(self, model_id: str) -> Optional[Dict[str, Any]]:
@@ -149,10 +182,13 @@ class ProviderDB:
         if not model_ids:
             return {}
         
-        placeholders = ','.join('?' * len(model_ids))
+        # FIXED: Use parameterized query with tuple expansion to prevent SQL injection
+        placeholders = ','.join(['?'] * len(model_ids))
+        query = f"SELECT * FROM model_benchmarks WHERE model_id IN ({placeholders})"
+        
         with self._get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(f"SELECT * FROM model_benchmarks WHERE model_id IN ({placeholders})", model_ids)
+            cursor.execute(query, model_ids)
             return {row['model_id']: dict(row) for row in cursor.fetchall()}
     
     def list_all_benchmarks(self) -> list[Dict[str, Any]]:
@@ -209,45 +245,13 @@ class ProviderDB:
             cursor.execute("SELECT COUNT(*) as c FROM model_benchmarks")
             models = cursor.fetchone()['c']
             
-            # Handle databases without archived column
-            try:
-                cursor.execute("SELECT COUNT(*) as c FROM model_benchmarks WHERE archived = 1")
-                archived = cursor.fetchone()['c']
-            except sqlite3.OperationalError:
-                archived = 0
-            
             cursor.execute("SELECT COUNT(*) as c FROM aliases")
             aliases = cursor.fetchone()['c']
-            return {'total_models': models, 'archived_models': archived, 'total_aliases': aliases}
+            return {'total_models': models, 'total_aliases': aliases}
     
-    def get_active_model_ids(self) -> set[str]:
-        """Get all non-archived model IDs currently in the database."""
+    def get_all_model_ids(self) -> set[str]:
+        """Get all model IDs currently in the database."""
         with self._get_connection() as conn:
             cursor = conn.cursor()
-            # Handle databases without archived column
-            try:
-                cursor.execute("SELECT model_id FROM model_benchmarks WHERE archived = 0")
-            except sqlite3.OperationalError:
-                cursor.execute("SELECT model_id FROM model_benchmarks")
+            cursor.execute("SELECT model_id FROM model_benchmarks")
             return {row[0] for row in cursor.fetchall()}
-    
-    def archive_model(self, model_id: str) -> None:
-        """Mark a model as archived (no longer in OpenRouter)."""
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-            try:
-                cursor.execute("UPDATE model_benchmarks SET archived = 1 WHERE model_id = ?", (model_id,))
-                conn.commit()
-            except sqlite3.OperationalError:
-                pass  # Column doesn't exist in old databases
-    
-    def unarchive_model(self, model_id: str) -> None:
-        """Mark a model as active (back in OpenRouter)."""
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-            try:
-                cursor.execute("UPDATE model_benchmarks SET archived = 0 WHERE model_id = ?", (model_id,))
-                conn.commit()
-            except sqlite3.OperationalError:
-                pass  # Column doesn't exist in old databases
-            conn.commit()

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "nlile/math_benchmark_test_saturation",
+    "author": "nlile",
+    "lastModified": "2025-03-10 04:51:45+00:00",
+    "downloads": 170,
+    "likes": 0,
+    "tags": [
+      "task_categories:question-answering",
+      "task_categories:text-generation",
+      "language:en",
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2103.03874",
+      "region:us",
+      "math",
+      "llm",
+      "benchmarks",
+      "saturation",
+      "evaluation",
+      "leaderboard",
+      "parameter-scaling"
+    ],
+    "description": "\n\t\n\t\t\n\t\tLLM Leaderboard Data for Hendrycks MATH Dataset (2022\u20132024)\n\t\n\nThis dataset aggregates yearly performance (2022\u20132024) of large language models (LLMs) on the Hendrycks MATH benchmark. It is specifically compiled to explore performance evolution, benchmark saturation, parameter scaling trends, and evaluation metrics of foundation models solving complex math word problems.\nOriginal source data: Math Word Problem Solving on MATH (Papers with Code)\n\n\t\n\t\t\n\t\n\t\n\t\tAbout Hendrycks' MATH\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nlile/math_benchmark_test_saturation.",
+    "search_query": "math benchmark",
+    "benchmark_score": 7,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name",
+      "known_benchmark"
+    ],
+    "is_promising": true
+  }
+]

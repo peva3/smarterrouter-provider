@@ -286,7 +286,6 @@ def cmd_inspect(args):
     print(f"Coding score: {benchmark.get('coding_score', 'N/A')}")
     print(f"General score: {benchmark.get('general_score', 'N/A')}")
     print(f"ELO rating: {benchmark.get('elo_rating', 'N/A')}")
-    print(f"Last updated: {benchmark.get('last_updated', 'N/A')}")
     
     # Check aliases
     canonical = db.get_canonical_id(model_id)

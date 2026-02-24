@@ -21,7 +21,7 @@ This document consolidates the technical deep-dive information for the provider.
 
 ```
 ┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│  OpenRouter API │────▶│  28 Benchmark    │────▶│   Heuristic     │
+│  OpenRouter API │────▶│  33 Benchmark    │────▶│   Heuristic     │
 │  (model list)   │     │   Sources        │     │   Estimator    │└─────────────────┘     └──────────────────┘     └─────────────────┘
                                                               │
                                                               ▼
@@ -35,7 +35,7 @@ This document consolidates the technical deep-dive information for the provider.
 
 1. **Builder** (`builder.py`) - Orchestrates the entire ETL pipeline
 2. **Database** (`database.py`) - SQLite operations with schema management
-3. **Sources** (`sources/`) - 28 benchmark data fetchers
+3. **Sources** (`sources/`) - 33 benchmark data fetchers
 4. **Model Mapper** (`model_mapper.py`) - Converts model names to canonical OpenRouter IDs
 5. **Utilities** (`utils.py`) - Rate limiting, retry logic, validation, metrics
 6. **CLI** (`cli.py`) - Command-line interface for building and inspecting
@@ -309,7 +309,46 @@ This heuristic system successfully estimated scores for all 112 missing models, 
 
 **Implementation**: Builder tracks existing models, only updates changed ones, archives missing ones.
 
-### 5. Docker + Crontab
+### 6. Dynamic Authority Weighting
+
+**Decision**: Implement hybrid consensus-weighted averaging for benchmark sources.
+
+**Rationale**:
+- Not all benchmark sources are equally reliable
+- Consensus-based weighting penalizes outliers while rewarding sources that agree with others
+- Weight per source (not per category) - if a source is unreliable in one category, it's likely unreliable in others
+
+**Implementation**:
+1. **Tiered Base Weights**: Sources categorized by reliability (Tier 1: 1.0, Tier 2: 0.9, Tier 3: 0.8)
+2. **Consensus Multipliers**: Pearson correlation between source scores and mean of other sources, clamped to 0.5-1.5
+3. **Final Weight**: `base_weight × consensus_multiplier`
+4. **Weighted Average**: `Σ(score × weight) / Σ(weight)` per category per model
+
+**Algorithm**:
+```python
+# Base weights by source tier
+SOURCE_BASE_WEIGHTS = {
+    'lmsys': 1.0, 'livebench': 1.0, 'bigcodebench': 1.0, 'mmlu': 1.0,  # Tier 1
+    'gsm8k': 0.9, 'arc': 0.9, 'bbh': 0.9, 'humaneval': 0.9,  # Tier 2
+    # ... all 33 sources
+}
+
+# Consensus multiplier per source
+multiplier = clamp(pearson_correlation(source_scores, mean(other_scores)), 0.5, 1.5)
+
+# Weighted average for each model category
+weighted_sum = Σ(score × base_weight × consensus_multiplier)
+total_weight = Σ(base_weight × consensus_multiplier)
+final_score = weighted_sum / total_weight if total_weight > 0 else 0.0
+```
+
+**Benefits**:
+- More reliable aggregations than simple averaging
+- Self-correcting - outliers automatically penalized
+- No external APIs needed for authority weights
+- Source-level weighting avoids category-specific biases
+
+### 7. Docker + Crontab
 
 **Decision**: Use Docker container with crontab for scheduling (not GitHub Actions).
 
@@ -329,13 +368,12 @@ This heuristic system successfully estimated scores for all 112 missing models, 
 1. **Add caching** for API responses to reduce load on benchmark sources
 2. **Add metrics endpoint** for Prometheus scraping
 3. **Add webhook notifications** on build failures
-4. **Add config file** for source priorities and weights
-5. **Improve error messages** with more context
+4. **Improve error messages** with more context
 
 ### Medium Term
 
 1. **Add more benchmark sources** to cover remaining niche models
-2. **Implement learning system** - adjust heuristic weights based on future real benchmark data
+2. **Enhance learning system** - refine consensus weights over time with statistical validation
 3. **Add model capability detection** - automatically infer vision/tool support from descriptions
 4. **Add versioning** - track which build produced which scores
 5. **Add compression** - gzip old database versions
@@ -361,7 +399,7 @@ The provider.db build system is **production-ready** with:
 - ✅ Historical preservation and archiving
 - ✅ Robust error handling and validation
 
-The system successfully aggregates data from 28 benchmark sources and intelligent heuristics to provide benchmark scores for every OpenRouter model, enabling SmarterRouter to make optimal routing decisions without expensive local profiling.
+The system successfully aggregates data from 33 benchmark sources and intelligent heuristics to provide benchmark scores for every OpenRouter model, enabling SmarterRouter to make optimal routing decisions without expensive local profiling.
 
 ---
 

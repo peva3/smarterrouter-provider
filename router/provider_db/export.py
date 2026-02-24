@@ -7,6 +7,7 @@ import sqlite3
 import argparse
 import sys
 import logging
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
@@ -37,6 +38,10 @@ def export_to_router_db(provider_db_path: Path, router_db_path: Path, dry_run: b
     logger.info(f"Reading from {provider_db_path}")
     logger.info(f"Writing to {router_db_path}")
     
+    # Initialize connections to None for finally block
+    src_conn = None
+    dst_conn = None
+    
     # Connect to both databases
     try:
         # Open provider DB
@@ -55,11 +60,9 @@ def export_to_router_db(provider_db_path: Path, router_db_path: Path, dry_run: b
             return False
             
         # Get source data
-        # Note: We filter out archived models
         src_cursor.execute("""
-            SELECT model_id, reasoning_score, coding_score, general_score, elo_rating, last_updated 
-            FROM model_benchmarks 
-            WHERE archived = 0
+            SELECT model_id, reasoning_score, coding_score, general_score, elo_rating
+            FROM model_benchmarks
         """)
         rows = src_cursor.fetchall()
         
@@ -90,7 +93,7 @@ def export_to_router_db(provider_db_path: Path, router_db_path: Path, dry_run: b
                     row['coding_score'], 
                     row['general_score'], 
                     row['elo_rating'], 
-                    row['last_updated'],
+                    datetime.now().isoformat(),
                     ollama_name
                 ))
                 updated_count += 1
@@ -105,7 +108,7 @@ def export_to_router_db(provider_db_path: Path, router_db_path: Path, dry_run: b
                     row['coding_score'],
                     row['general_score'],
                     row['elo_rating'],
-                    row['last_updated']
+                    datetime.now().isoformat()
                 ))
                 inserted_count += 1
                 
@@ -119,8 +122,10 @@ def export_to_router_db(provider_db_path: Path, router_db_path: Path, dry_run: b
         logger.error(f"Error during export: {e}")
         return False
     finally:
-        if 'src_conn' in locals(): src_conn.close()
-        if 'dst_conn' in locals(): dst_conn.close()
+        if src_conn is not None:
+            src_conn.close()
+        if dst_conn is not None:
+            dst_conn.close()
         
     return True
 

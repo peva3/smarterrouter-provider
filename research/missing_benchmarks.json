@@ -1,0 +1,2573 @@
+[
+  {
+    "id": "nlile/math_benchmark_test_saturation",
+    "author": "nlile",
+    "lastModified": "2025-03-10 04:51:45+00:00",
+    "downloads": 170,
+    "likes": 0,
+    "tags": [
+      "task_categories:question-answering",
+      "task_categories:text-generation",
+      "language:en",
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2103.03874",
+      "region:us",
+      "math",
+      "llm",
+      "benchmarks",
+      "saturation",
+      "evaluation",
+      "leaderboard",
+      "parameter-scaling"
+    ],
+    "description": "\n\t\n\t\t\n\t\tLLM Leaderboard Data for Hendrycks MATH Dataset (2022\u20132024)\n\t\n\nThis dataset aggregates yearly performance (2022\u20132024) of large language models (LLMs) on the Hendrycks MATH benchmark. It is specifically compiled to explore performance evolution, benchmark saturation, parameter scaling trends, and evaluation metrics of foundation models solving complex math word problems.\nOriginal source data: Math Word Problem Solving on MATH (Papers with Code)\n\n\t\n\t\t\n\t\n\t\n\t\tAbout Hendrycks' MATH\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nlile/math_benchmark_test_saturation.",
+    "search_query": "math benchmark",
+    "benchmark_score": 7,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "DBbun/synthetic-llm-evaluation-traces",
+    "author": "DBbun",
+    "lastModified": "2026-01-21 20:47:34+00:00",
+    "downloads": 107,
+    "likes": 0,
+    "tags": [
+      "task_categories:text-generation",
+      "task_categories:feature-extraction",
+      "license:apache-2.0",
+      "region:us",
+      "synthetic-data",
+      "llm",
+      "evaluation",
+      "nlp",
+      "benchmark",
+      "human-feedback",
+      "pairwise-comparison",
+      "leaderboard",
+      "ai-evaluation",
+      "simulation"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEvaluLLM-Inspired Synthetic Evaluation Traces (DBbun)\n\t\n\nView source code on GitHub\nWatch on Youtube: Evaluating AI with AI\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nThis dataset contains fully synthetic evaluation traces for NLG / LLM-style output comparison, inspired by the evaluation workflow described in EvaluLLM: LLM Assisted Evaluation of Generative Outputs (IUI Companion 2024).\nThe dataset is produced by a configurable, offline simulator and includes:\n\nsynthetic tasks (prompts)\nsynthetic\u2026 See the full description on the dataset page: https://huggingface.co/datasets/DBbun/synthetic-llm-evaluation-traces.",
+    "search_query": "llm evaluation",
+    "benchmark_score": 7,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "nlile/hendrycks-MATH-benchmark",
+    "author": "nlile",
+    "lastModified": "2025-01-28 14:55:10+00:00",
+    "downloads": 7576,
+    "likes": 27,
+    "tags": [
+      "size_categories:10K<n<100K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2103.03874",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tHendrycks MATH Dataset\n\t\n\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\nThe MATH dataset is a collection of mathematics competition problems designed to evaluate mathematical reasoning and problem-solving capabilities in computational systems. Containing 12,500 high school competition-level mathematics problems, this dataset is notable for including detailed step-by-step solutions alongside each problem.\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nThe dataset consists of mathematics problems spanning multiple\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nlile/hendrycks-MATH-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 5,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "mmathys/openai-moderation-api-evaluation",
+    "author": "mmathys",
+    "lastModified": "2023-08-28 14:56:39+00:00",
+    "downloads": 216,
+    "likes": 35,
+    "tags": [
+      "task_categories:text-classification",
+      "language:en",
+      "license:mit",
+      "size_categories:1K<n<10K",
+      "format:json",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2208.03274",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEvaluation dataset for the paper \"A Holistic Approach to Undesired Content Detection\"\n\t\n\nThe evaluation dataset data/samples-1680.jsonl.gz is the test set used in this paper.\nEach line contains information about one sample in a JSON object and each sample is labeled according to our taxonomy. The category label is a binary flag, but if it does not include in the JSON, it means we do not know the label.\n\n\t\n\t\t\nCategory\nLabel\nDefinition\n\n\n\t\t\nsexual\nS\nContent meant to arouse sexual\u2026 See the full description on the dataset page: https://huggingface.co/datasets/mmathys/openai-moderation-api-evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 5,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Karifannaa/EGE_Math_Solutions_Assessment_Benchmark",
+    "author": "Karifannaa",
+    "lastModified": "2025-08-25 11:30:02+00:00",
+    "downloads": 27,
+    "likes": 7,
+    "tags": [
+      "task_categories:image-text-to-text",
+      "language:ru",
+      "license:other",
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:image",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2507.22958",
+      "region:us",
+      "mathematics",
+      "education",
+      "vlm",
+      "assessment",
+      "russian",
+      "handwritten"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEGE Math Solutions Assessment Benchmark\n\t\n\nPaper | Code\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\nThis dataset contains student solutions to Russian Unified State Exam (EGE) mathematics problems, with reference scores for benchmarking automated evaluation systems.\n\ud83d\uddbc\ufe0f All images are properly embedded and accessible!\nThe dataset includes three types of images for each solution:\n\nStudent solutions with correct answers shown (152 images)\nStudent solutions without answers for blind evaluation (152\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Karifannaa/EGE_Math_Solutions_Assessment_Benchmark.",
+    "search_query": "math benchmark",
+    "benchmark_score": 5,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "cot-leaderboard/cot-eval-traces-2.0",
+    "author": "cot-leaderboard",
+    "lastModified": "2025-02-26 02:42:25+00:00",
+    "downloads": 4059,
+    "likes": 8,
+    "tags": [
+      "license:openrail",
+      "size_categories:1M<n<10M",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "leaderboard",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "mzwydf/svi-benchmark",
+    "author": "mzwydf",
+    "lastModified": "2025-12-31 13:48:48+00:00",
+    "downloads": 3026,
+    "likes": 0,
+    "tags": [
+      "task_categories:image-to-video",
+      "language:en",
+      "size_categories:n<1K",
+      "format:text",
+      "modality:image",
+      "modality:text",
+      "modality:video",
+      "library:datasets",
+      "library:mlcroissant",
+      "arxiv:2510.09212",
+      "region:us",
+      "video generation",
+      "benchmark"
+    ],
+    "description": "\n\t\n\t\t\n\t\tStable Video Infinity (SVI) Benchmark Dataset\n\t\n\nThis benchmark dataset is introduced in the paper:\nStable Video Infinity: Infinite-Length Video Generation with Error Recycling\nby Wuyang Li, Wentao Pan, Po-Chien Luan, Yang Gao, Alexandre Alahi (2025).\nProject page: https://stable-video-infinity.github.io/homepage/\nCode: https://github.com/vita-epfl/Stable-Video-Infinity\n\n\t\n\t\t\n\t\n\t\n\t\tAbstract\n\t\n\nWe propose Stable Video Infinity (SVI) that is able to generate infinite-length videos with\u2026 See the full description on the dataset page: https://huggingface.co/datasets/mzwydf/svi-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "yesilhealth/Health_Benchmarks",
+    "author": "yesilhealth",
+    "lastModified": "2025-04-20 09:33:14+00:00",
+    "downloads": 1402,
+    "likes": 8,
+    "tags": [
+      "task_categories:question-answering",
+      "task_categories:multiple-choice",
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us",
+      "health",
+      "benchmark",
+      "medical",
+      "specialities",
+      "lab",
+      "dermatology",
+      "internal",
+      "cardiology",
+      "pediatrics",
+      "surgery",
+      "orthopedics",
+      "ophthalmology",
+      "head",
+      "psychiatry",
+      "genetics",
+      "pathology",
+      "nutrition",
+      "wellbeing",
+      "quiz",
+      "questions",
+      "QA"
+    ],
+    "description": "\n\t\n\t\t\n\t\tLLM Health Benchmarks Dataset by Yesil Science\n\t\n\nThe LLM Health Benchmarks Dataset is a specialized resource for evaluating large language models (LLMs) in different medical specialties. It provides structured question-answer pairs designed to test the performance of AI models in understanding and generating domain-specific knowledge.\n\n\n\t\n\t\t\n\t\tPrimary Purpose\n\t\n\nThis dataset is built to:\n\nBenchmark LLMs in medical specialties and subfields.\nAssess the accuracy and contextual\u2026 See the full description on the dataset page: https://huggingface.co/datasets/yesilhealth/Health_Benchmarks.",
+    "search_query": "benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "vita-video-gen/svi-benchmark",
+    "author": "vita-video-gen",
+    "lastModified": "2025-10-23 12:20:17+00:00",
+    "downloads": 1339,
+    "likes": 5,
+    "tags": [
+      "task_categories:image-to-video",
+      "language:en",
+      "size_categories:n<1K",
+      "format:text",
+      "modality:image",
+      "modality:text",
+      "modality:video",
+      "library:datasets",
+      "library:mlcroissant",
+      "arxiv:2510.09212",
+      "region:us",
+      "video generation",
+      "benchmark"
+    ],
+    "description": "\n\t\n\t\t\n\t\tStable Video Infinity (SVI) Benchmark Dataset\n\t\n\nThis benchmark dataset is introduced in the paper:\nStable Video Infinity: Infinite-Length Video Generation with Error Recycling\nby Wuyang Li, Wentao Pan, Po-Chien Luan, Yang Gao, Alexandre Alahi (2025).\nProject page: https://stable-video-infinity.github.io/homepage/\nCode: https://github.com/vita-epfl/Stable-Video-Infinity\n\n\t\n\t\t\n\t\n\t\n\t\tAbstract\n\t\n\nWe propose Stable Video Infinity (SVI) that is able to generate infinite-length videos with\u2026 See the full description on the dataset page: https://huggingface.co/datasets/vita-video-gen/svi-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "vincentkoc/tiny_qa_benchmark_pp",
+    "author": "vincentkoc",
+    "lastModified": "2025-08-25 00:19:51+00:00",
+    "downloads": 1191,
+    "likes": 2,
+    "tags": [
+      "task_categories:question-answering",
+      "task_ids:extractive-qa",
+      "task_ids:closed-book-qa",
+      "language:en",
+      "language:de",
+      "language:ar",
+      "language:ko",
+      "language:fr",
+      "language:pt",
+      "language:zh",
+      "language:ja",
+      "language:es",
+      "language:tr",
+      "language:ru",
+      "license:other",
+      "size_categories:n<1K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "arxiv:2505.12058",
+      "doi:10.57967/hf/5531",
+      "region:us",
+      "synthetic",
+      "qa",
+      "evaluation",
+      "benchmark",
+      "llmops",
+      "smoke-test"
+    ],
+    "description": "\n\t\n\t\t\n\t\tTiny QA Benchmark++ (TQB++)\n\t\n\nTiny QA Benchmark++ (TQB++) is an ultra-lightweight evaluation suite designed to expose critical failures in Large Language Model (LLM) systems within seconds. It serves as the LLM analogue of software unit tests, ideal for rapid CI/CD checks, prompt engineering, and continuous quality assurance in modern LLMOps.\nThis Hugging Face dataset repository hosts the core English dataset and various synthetically generated multilingual and topical dataset packs\u2026 See the full description on the dataset page: https://huggingface.co/datasets/vincentkoc/tiny_qa_benchmark_pp.",
+    "search_query": "benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "LatamBoard/leaderboard-results",
+    "author": "LatamBoard",
+    "lastModified": "2025-12-26 20:32:13+00:00",
+    "downloads": 546,
+    "likes": 0,
+    "tags": [
+      "license:mit",
+      "region:us",
+      "evaluation",
+      "leaderboard",
+      "results"
+    ],
+    "description": "\n\t\n\t\t\n\t\tmauroibz/leaderboard-results\n\t\n\nResults from model evaluations on the leaderboard\nThis dataset contains evaluation results from the leaderboard system.\n\n\t\n\t\t\n\t\tStructure\n\t\n\n\nEach JSON file contains results for a specific model evaluation\nFiles are organized by organization/model structure\nEach result file includes:\nModel configuration\nEvaluation results across different benchmarks\nMetadata about the evaluation run\n\n\n\n\n\t\n\t\t\n\t\tUsage\n\t\n\nThese results are used by the leaderboard system to\u2026 See the full description on the dataset page: https://huggingface.co/datasets/LatamBoard/leaderboard-results.",
+    "search_query": "leaderboard",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "lmms-lab-si/EASI-Leaderboard-Data",
+    "author": "lmms-lab-si",
+    "lastModified": "2026-02-12 06:02:06+00:00",
+    "downloads": 444,
+    "likes": 0,
+    "tags": [
+      "task_categories:question-answering",
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:10K<n<100K",
+      "modality:image",
+      "region:us",
+      "Spatial Intelligence",
+      "EASI",
+      "Benchmark",
+      "Leaderboard"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEASI Leaderboard Data\n\t\n\nA consolidated dataset for the EASI Leaderboard, containing the evaluation data (inputs/prompts) actually used on the leaderboard across spatial reasoning benchmarks for VLMs.\n\nLooking for the Spatial Intelligence leaderboard?https://huggingface.co/spaces/lmms-lab-si/EASI-Leaderboard\n\n\n\t\n\t\t\n\t\n\t\n\t\t\ud83d\udd0e Dataset Summary\n\t\n\n\nQuestion types: MCQ (multiple choice) and NA (numeric answer).\nFile format: TSV only.\nUsage: These TSVs are directly consumable by the EASI\u2026 See the full description on the dataset page: https://huggingface.co/datasets/lmms-lab-si/EASI-Leaderboard-Data.",
+    "search_query": "leaderboard",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_hints",
+    "author": "CohenQu",
+    "lastModified": "2025-07-30 21:01:41+00:00",
+    "downloads": 117,
+    "likes": 0,
+    "tags": [
+      "size_categories:10K<n<100K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_hints_iter1_prompt",
+    "author": "CohenQu",
+    "lastModified": "2025-07-24 23:18:55+00:00",
+    "downloads": 83,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Aaron080108/BBQ_Benchmark_Reasoning_Trace",
+    "author": "Aaron080108",
+    "lastModified": "2025-07-15 06:31:45+00:00",
+    "downloads": 72,
+    "likes": 1,
+    "tags": [
+      "license:mit",
+      "size_categories:1K<n<10K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_hints_gen_iter1_sol_prompt",
+    "author": "CohenQu",
+    "lastModified": "2025-07-25 02:52:49+00:00",
+    "downloads": 48,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Lexia-Labs/french-math-asr-benchmark",
+    "author": "Lexia-Labs",
+    "lastModified": "2026-02-12 14:32:27+00:00",
+    "downloads": 26,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "format:optimized-parquet",
+      "modality:audio",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "active-reasoning/math_reasoning_benchmark",
+    "author": "active-reasoning",
+    "lastModified": "2025-02-26 00:56:14+00:00",
+    "downloads": 19,
+    "likes": 1,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/CoRA_math_reasoning_benchmark",
+    "author": "CohenQu",
+    "lastModified": "2025-05-14 18:33:39+00:00",
+    "downloads": 18,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_api_sols",
+    "author": "CohenQu",
+    "lastModified": "2025-07-31 07:26:24+00:00",
+    "downloads": 16,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "oulinyu/mm_math_benchmark",
+    "author": "oulinyu",
+    "lastModified": "2025-07-30 12:01:48+00:00",
+    "downloads": 12,
+    "likes": 0,
+    "tags": [
+      "license:apache-2.0",
+      "size_categories:1K<n<10K",
+      "format:imagefolder",
+      "modality:image",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "mrinaldi/simple_math_benchmark_multilingual",
+    "author": "mrinaldi",
+    "lastModified": "2025-11-26 14:24:48+00:00",
+    "downloads": 10,
+    "likes": 0,
+    "tags": [
+      "size_categories:100K<n<1M",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "sergiogpinto/memefact-llm-evaluations",
+    "author": "sergiogpinto",
+    "lastModified": "2025-04-27 18:17:59+00:00",
+    "downloads": 8,
+    "likes": 0,
+    "tags": [
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:1K<n<10K",
+      "format:csv",
+      "modality:image",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "doi:10.57967/hf/5261",
+      "region:us",
+      "meme",
+      "humor",
+      "llm",
+      "fact-checking",
+      "evaluation",
+      "human-ai-alignment",
+      "llm-as-a-judge"
+    ],
+    "description": "\n\t\n\t\t\n\t\tMemeFact LLM Evaluations Dataset\n\t\n\nThis dataset contains 7,680 evaluation records where state-of-the-art Large Language Models (LLMs) assessed fact-checking memes according to specific quality criteria. The dataset provides comprehensive insights into how different AI models evaluate visual-textual content and how these evaluations compare to human judgments.\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\n\n\t\n\t\t\n\t\tOverview\n\t\n\nThe \"MemeFact LLM Evaluations\" dataset documents a systematic study\u2026 See the full description on the dataset page: https://huggingface.co/datasets/sergiogpinto/memefact-llm-evaluations.",
+    "search_query": "llm evaluation",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_tag",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "talzoomanzoo/math_benchmark_train",
+    "author": "talzoomanzoo",
+    "lastModified": "2025-10-29 08:06:04+00:00",
+    "downloads": 8,
+    "likes": 0,
+    "tags": [
+      "size_categories:10K<n<100K",
+      "format:parquet",
+      "format:optimized-parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/CoRA_math_reasoning_benchmark_final",
+    "author": "CohenQu",
+    "lastModified": "2025-05-15 05:39:39+00:00",
+    "downloads": 7,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_api_hint",
+    "author": "CohenQu",
+    "lastModified": "2025-07-31 01:44:33+00:00",
+    "downloads": 7,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "talzoomanzoo/math_benchmark_test",
+    "author": "talzoomanzoo",
+    "lastModified": "2025-10-29 08:06:08+00:00",
+    "downloads": 7,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "format:optimized-parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "minqi/hendrycks-MATH-benchmark",
+    "author": "minqi",
+    "lastModified": "2025-06-16 14:01:47+00:00",
+    "downloads": 6,
+    "likes": 0,
+    "tags": [
+      "size_categories:10K<n<100K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/math_reasoning_benchmark",
+    "author": "CohenQu",
+    "lastModified": "2025-06-02 16:16:56+00:00",
+    "downloads": 5,
+    "likes": 1,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Alexis-Az/Math-LLM-Evaluations",
+    "author": "Alexis-Az",
+    "lastModified": "2024-12-04 04:45:59+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "llm evaluation",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/CoRA_math_reasoning_benchmark_DPO_hints",
+    "author": "CohenQu",
+    "lastModified": "2025-05-15 01:50:26+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/CoRA_math_reasoning_benchmark_test",
+    "author": "CohenQu",
+    "lastModified": "2025-05-15 16:40:10+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/CoRA_math_reasoning_benchmark_ablation",
+    "author": "CohenQu",
+    "lastModified": "2025-05-15 20:27:41+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/math_reasoning_benchmark_scaling_hint-gen",
+    "author": "CohenQu",
+    "lastModified": "2025-05-16 08:38:53+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/CoRA_math_reasoning_benchmark_scaling",
+    "author": "CohenQu",
+    "lastModified": "2025-05-16 09:01:31+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Asap7772/math_reasoning_benchmark_qwen3-4b-base-lr5e-6_respgen",
+    "author": "Asap7772",
+    "lastModified": "2025-06-06 07:02:39+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Asap7772/math_reasoning_benchmark_qwen3-4b-lr5e-6_respgen",
+    "author": "Asap7772",
+    "lastModified": "2025-06-06 06:44:54+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "format:parquet",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "Asap7772/math_reasoning_benchmark_qwen3-4b-base-lr1e-6_respgen",
+    "author": "Asap7772",
+    "lastModified": "2025-06-06 07:02:32+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_api_sol_cond_hint_new",
+    "author": "CohenQu",
+    "lastModified": "2025-07-31 00:06:35+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "pittawat/hard_math_benchmark",
+    "author": "pittawat",
+    "lastModified": "2025-05-13 05:10:22+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "SmallDoge/Math_Benchmark_Difficulty",
+    "author": "SmallDoge",
+    "lastModified": "2025-05-15 11:08:46+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "umbra2728/math-agent-vikhr-benchmark-results",
+    "author": "umbra2728",
+    "lastModified": "2025-08-04 10:30:26+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "license:apache-2.0",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "hafidhsoekma/math-olympiad-indonesian-benchmark",
+    "author": "hafidhsoekma",
+    "lastModified": "2025-08-20 11:11:48+00:00",
+    "downloads": 4,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "krammnic/ru-math-benchmark",
+    "author": "krammnic",
+    "lastModified": "2024-09-08 15:46:47+00:00",
+    "downloads": 3,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:csv",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_api_sols_merged",
+    "author": "CohenQu",
+    "lastModified": "2025-07-30 22:44:32+00:00",
+    "downloads": 2,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "CohenQu/arxiv_rlad_math_reasoning_benchmark_api_sol_cond_hint",
+    "author": "CohenQu",
+    "lastModified": "2025-07-30 23:01:27+00:00",
+    "downloads": 2,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "reasoning benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "prima02/benchmark_math",
+    "author": "prima02",
+    "lastModified": "2025-03-24 18:34:15+00:00",
+    "downloads": 2,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "math benchmark",
+    "benchmark_score": 4,
+    "benchmark_reasons": [
+      "benchmark_name",
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "sbordt/toaa_mathematical_reasoning",
+    "author": "sbordt",
+    "lastModified": "2026-02-15 13:02:14+00:00",
+    "downloads": 15,
+    "likes": 0,
+    "tags": [
+      "size_categories:100K<n<1M",
+      "format:parquet",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "",
+    "search_query": "mathematical reasoning",
+    "benchmark_score": 3,
+    "benchmark_reasons": [
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "ll028987/Mathematical-Chain-Reasoning",
+    "author": "ll028987",
+    "lastModified": "2025-09-20 12:22:30+00:00",
+    "downloads": 8,
+    "likes": 2,
+    "tags": [
+      "language:es",
+      "license:apache-2.0",
+      "size_categories:n<1K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\t\ud83d\ude4c Cr\u00e9ditos\n\t\n\nCreado y mantenido por ll028987.\n\n",
+    "search_query": "mathematical reasoning",
+    "benchmark_score": 3,
+    "benchmark_reasons": [
+      "known_benchmark"
+    ]
+  },
+  {
+    "id": "open-llm-leaderboard-old/requests",
+    "author": "open-llm-leaderboard-old",
+    "lastModified": "2024-06-19 21:36:08+00:00",
+    "downloads": 460367,
+    "likes": 22,
+    "tags": [
+      "license:apache-2.0",
+      "size_categories:n<1K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\n\t\n\t\t\n\t\tOpen LLM Leaderboard Requests\n\t\n\nThis repository contains the request files of models that have been submitted to the Open LLM Leaderboard.\nYou can take a look at the current status of your model by finding its request file in this dataset. If your model failed, feel free to open an issue on the Open LLM Leaderboard! (We don't follow issues in this repository as often)\n\n\t\n\t\t\n\t\tEvaluation Methodology\n\t\n\nThe evaluation process involves running your models against several benchmarks from\u2026 See the full description on the dataset page: https://huggingface.co/datasets/open-llm-leaderboard-old/requests.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "DL3DV/DL3DV-Benchmark",
+    "author": "DL3DV",
+    "lastModified": "2025-09-12 07:30:49+00:00",
+    "downloads": 57244,
+    "likes": 32,
+    "tags": [
+      "size_categories:n>1T",
+      "region:us",
+      "3D vision",
+      "novel view synthesis",
+      "NeRF",
+      "3D Gaussian Splatting",
+      "Generalizable NeRF",
+      "Generative Methods",
+      "text-to-3d",
+      "image-to-3d"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDL3DV Benchmark Download Instructions\n\t\n\nThis repo contains 140 scenes in the DL3DV-benchmark, which are sampled from DL3DV-10K. The repo includes a README, License, colmaps/images (compatible to nerfstudio and 3D gaussian splatting), scene labels and the performances of methods reported in the paper (ZipNeRF, 3DGS, MipNeRF-360, nerfacto, Instant-NGP). The benchmark preview page can be found here https://dl3dv-10k.github.io/DL3DV-Benchmark-Preview/.\n\n\t\n\t\t\n\t\n\t\n\t\tDownload\n\t\n\nAs the whole\u2026 See the full description on the dataset page: https://huggingface.co/datasets/DL3DV/DL3DV-Benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Voxel51/Egocentric_10K_Evaluation",
+    "author": "Voxel51",
+    "lastModified": "2025-11-24 23:44:04+00:00",
+    "downloads": 36209,
+    "likes": 1,
+    "tags": [
+      "task_categories:image-classification",
+      "language:en",
+      "size_categories:10K<n<100K",
+      "modality:image",
+      "library:fiftyone",
+      "region:us",
+      "fiftyone",
+      "image",
+      "image-classification"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for Egocentric_10K_Evaluation\n\t\n\n\nThis is a FiftyOne dataset with 30000 samples.\n\n\t\n\t\t\n\t\tInstallation\n\t\n\nIf you haven't already, install FiftyOne:\npip install -U fiftyone\n\n\n\t\n\t\t\n\t\tUsage\n\t\n\nimport fiftyone as fo\nfrom fiftyone.utils.huggingface import load_from_hub\n\n# Load the dataset\n# Note: other available arguments include 'max_samples', etc\ndataset = load_from_hub(\"Voxel51/Egocentric_10K_Evaluation\")\n\n# Launch the App\nsession = fo.launch_app(dataset)\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Voxel51/Egocentric_10K_Evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "sandbagging-games/evaluation_logs",
+    "author": "sandbagging-games",
+    "lastModified": "2026-01-09 13:26:02+00:00",
+    "downloads": 30394,
+    "likes": 1,
+    "tags": [
+      "arxiv:2512.07810",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEvaluation logs from \"Auditing Games for Sandbagging\"\n\t\n\n\n\nThis dataset provides evaluation transcripts produced for the paper \"Auditing Games for Sandbagging\". Transcripts are provided in Inspect .eval format, see https://github.com/AI-Safety-Institute/sabotage_games for a guide to viewing them.\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Details\n\t\n\n\nevaluation_transcripts/handover_evals contains the transcripts provided by the red team to the blue team at the beginning of the main round of the game, showing\u2026 See the full description on the dataset page: https://huggingface.co/datasets/sandbagging-games/evaluation_logs.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "gorilla-llm/Berkeley-Function-Calling-Leaderboard",
+    "author": "gorilla-llm",
+    "lastModified": "2025-02-14 21:41:10+00:00",
+    "downloads": 17181,
+    "likes": 98,
+    "tags": [
+      "language:en",
+      "license:apache-2.0",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tBerkeley Function Calling Leaderboard\n\t\n\nThe Berkeley function calling leaderboard is a live leaderboard to evaluate the ability of different LLMs to call functions (also referred to as tools).\nWe built this dataset from our learnings to be representative of most users' function calling use-cases, for example, in agents, as a part of enterprise workflows, etc.\nTo this end, our evaluation dataset spans diverse categories, and across multiple languages.\nCheckout the Leaderboard at\u2026 See the full description on the dataset page: https://huggingface.co/datasets/gorilla-llm/Berkeley-Function-Calling-Leaderboard.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "gaia-benchmark/GAIA",
+    "author": "gaia-benchmark",
+    "lastModified": "2025-10-28 14:44:54+00:00",
+    "downloads": 15031,
+    "likes": 616,
+    "tags": [
+      "language:en",
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:audio",
+      "modality:document",
+      "modality:image",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "arxiv:2311.12983",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tGAIA dataset\n\t\n\nGAIA is a benchmark which aims at evaluating next-generation LLMs (LLMs with augmented capabilities due to added tooling, efficient prompting, access to search, etc).\nWe added gating to prevent bots from scraping the dataset. Please do not reshare the validation or test set in a crawlable format.\n\n\t\n\t\t\n\t\tData and leaderboard\n\t\n\nGAIA is made of more than 450 non-trivial question with an unambiguous answer, requiring different levels of tooling and autonomy to solve. It\u2026 See the full description on the dataset page: https://huggingface.co/datasets/gaia-benchmark/GAIA.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "BLINK-Benchmark/BLINK",
+    "author": "BLINK-Benchmark",
+    "lastModified": "2025-09-03 04:35:07+00:00",
+    "downloads": 14164,
+    "likes": 39,
+    "tags": [
+      "license:apache-2.0",
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:image",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2404.12390",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tBLINK: Multimodal Large Language Models Can See but Not Perceive\n\t\n\n\ud83c\udf10 Homepage | \ud83d\udcbb Code | \ud83d\udcd6 Paper | \ud83d\udcd6 arXiv | \ud83d\udd17 Eval AI\nThis page contains the benchmark dataset for the paper \"BLINK: Multimodal Large Language Models Can See but Not Perceive\"\n\n\t\n\t\n\t\n\t\tIntroduction\n\t\n\nWe introduce BLINK, a new benchmark for multimodal language models (LLMs) that focuses on core visual perception abilities not found in other evaluations. Most of the BLINK tasks can be solved by humans \u201cwithin a\u2026 See the full description on the dataset page: https://huggingface.co/datasets/BLINK-Benchmark/BLINK.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "xingkunliuxtracta/nlu_evaluation_data",
+    "author": "xingkunliuxtracta",
+    "lastModified": "2024-01-18 11:10:41+00:00",
+    "downloads": 13755,
+    "likes": 9,
+    "tags": [
+      "task_categories:text-classification",
+      "task_ids:intent-classification",
+      "task_ids:multi-class-classification",
+      "annotations_creators:expert-generated",
+      "language_creators:expert-generated",
+      "multilinguality:monolingual",
+      "source_datasets:original",
+      "language:en",
+      "license:cc-by-4.0",
+      "size_categories:10K<n<100K",
+      "arxiv:1903.05566",
+      "region:us"
+    ],
+    "description": "Raw part of NLU Evaluation Data. It contains 25 715 non-empty examples (original dataset has 25716 examples) from 68 unique intents belonging to 18 scenarios.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "DabbyOWL/PDE_Inverse_Problem_Benchmarking",
+    "author": "DabbyOWL",
+    "lastModified": "2026-01-26 09:34:32+00:00",
+    "downloads": 12084,
+    "likes": 2,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tPDEInvBench Data Guide\n\t\n\nData guide for the dataset accompanying PDEInvBench.\n\n\n\t\n\t\t\n\t\t1. Dataset Link\n\t\n\nThe dataset used in this project can be found here:\nhttps://huggingface.co/datasets/DabbyOWL/PDE_Inverse_Problem_Benchmarking/tree/main\n\n\t\n\t\t\n\t\t2. Downloading Data\n\t\n\nWe provide a python script: huggingface_pdeinv_download.py to batch download our hugging-face data. We will update the readme of our hugging-face dataset and our github repo to reflect this addition. To run this:\npip\u2026 See the full description on the dataset page: https://huggingface.co/datasets/DabbyOWL/PDE_Inverse_Problem_Benchmarking.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "morteza20/mteb_leaderboard",
+    "author": "morteza20",
+    "lastModified": "2025-01-04 14:31:52+00:00",
+    "downloads": 10736,
+    "likes": 0,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n[!NOTE]Previously it was possible to submit models results to MTEB by adding the results to the model metadata. This is no longer an option as we want to ensure high quality metadata.\n\nThis repository contain the results of the embedding benchmark evaluated using the package mteb.\n\n\t\n\t\t\nReference\n\n\n\n\t\t\n\ud83e\uddbe Leaderboard\nAn up to date leaderboard of embedding models\n\n\n\ud83d\udcda mteb\nGuides and instructions on how to use mteb, including running, submitting scores, etc.\n\n\n\ud83d\ude4b Questions\nQuestions about the\u2026 See the full description on the dataset page: https://huggingface.co/datasets/morteza20/mteb_leaderboard.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "google/frames-benchmark",
+    "author": "google",
+    "lastModified": "2024-10-15 18:18:24+00:00",
+    "downloads": 10634,
+    "likes": 241,
+    "tags": [
+      "task_categories:text-classification",
+      "task_categories:token-classification",
+      "task_categories:table-question-answering",
+      "task_categories:question-answering",
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:n<1K",
+      "format:csv",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2409.12941",
+      "region:us",
+      "rag",
+      "long-context",
+      "llm-search",
+      "reasoning",
+      "factuality",
+      "retrieval",
+      "question-answering",
+      "iterative-search"
+    ],
+    "description": "\n\t\n\t\t\n\t\tFRAMES: Factuality, Retrieval, And reasoning MEasurement Set\n\t\n\nFRAMES is a comprehensive evaluation dataset designed to test the capabilities of Retrieval-Augmented Generation (RAG) systems across factuality, retrieval accuracy, and reasoning.\nOur paper with details and experiments is available on arXiv: https://arxiv.org/abs/2409.12941.\n\n\t\n\t\t\n\t\tDataset Overview\n\t\n\n\n824 challenging multi-hop questions requiring information from 2-15 Wikipedia articles\nQuestions span diverse topics\u2026 See the full description on the dataset page: https://huggingface.co/datasets/google/frames-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "vanessaguarino/mnist-confidence-thresholded-evaluation",
+    "author": "vanessaguarino",
+    "lastModified": "2026-01-21 21:59:31+00:00",
+    "downloads": 9286,
+    "likes": 0,
+    "tags": [
+      "size_categories:n<1K",
+      "format:imagefolder",
+      "modality:image",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tMNIST Diffusion Assessment Results\n\t\n\nThis dataset contains a FiftyOne export of an evaluation performed on MNIST-style images generated by a diffusion model.\n\nContent: Generated MNIST digit images\nPredictions: Includes IDK (uncertain) predictions, which are used to help filter out low-quality or ambiguous generated images\nPurpose: Quality assessment and filtering of generated samples\nSplit: Test / Evaluation\nFormat: FiftyOneDataset\n\nThis dataset contains 500 MNIST-style images\u2026 See the full description on the dataset page: https://huggingface.co/datasets/vanessaguarino/mnist-confidence-thresholded-evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "ItsMaxNorm/pc-benchmark",
+    "author": "ItsMaxNorm",
+    "lastModified": "2025-12-31 13:32:49+00:00",
+    "downloads": 9161,
+    "likes": 0,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tOffline Retrieval Benchmark\n\t\n\nThis benchmark evaluates offline (local database) retrieval performance for CVPR/NIPS/ICLR 2020\u20132024.\nIt is designed to mirror the local search behavior used by agent.py, but runs without network access.\n\n\t\n\t\t\n\t\tFiles\n\t\n\n\nbenchmarks/offline_queries.jsonl: Query set (JSONL).\nbenchmarks/run_offline_benchmark.py: Benchmark runner.\n\n\n\t\n\t\t\n\t\tQuery Schema\n\t\n\nEach line in offline_queries.jsonl is a JSON object:\n{\n  \"id\": \"q1\",\n  \"query\": \"offline: efficient\u2026 See the full description on the dataset page: https://huggingface.co/datasets/ItsMaxNorm/pc-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "miromind-ai/MiroFlow-Benchmarks",
+    "author": "miromind-ai",
+    "lastModified": "2026-01-05 08:46:19+00:00",
+    "downloads": 8270,
+    "likes": 6,
+    "tags": [
+      "license:apache-2.0",
+      "region:us"
+    ],
+    "description": "These are the benchmarking datasets used for MiroFlow Framework. More information: https://github.com/MiroMindAI/MiroThinker\n",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "open-llm-leaderboard-old/results",
+    "author": "open-llm-leaderboard-old",
+    "lastModified": "2024-07-18 13:49:22+00:00",
+    "downloads": 8196,
+    "likes": 50,
+    "tags": [
+      "language:en",
+      "region:us"
+    ],
+    "description": "\n\n\t\n\t\t\n\t\tOpen LLM Leaderboard Results\n\t\n\nThis repository contains the outcomes of your submitted models that have been evaluated through the Open LLM Leaderboard. Our goal is to shed light on the cutting-edge Large Language Models (LLMs) and chatbots, enabling you to make well-informed decisions regarding your chosen application.\n\n\t\n\t\t\n\t\tEvaluation Methodology\n\t\n\nThe evaluation process involves running your models against several benchmarks from the Eleuther AI Harness, a unified framework for\u2026 See the full description on the dataset page: https://huggingface.co/datasets/open-llm-leaderboard-old/results.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "lighteval/code_generation_lite",
+    "author": "lighteval",
+    "lastModified": "2025-08-15 11:33:31+00:00",
+    "downloads": 7178,
+    "likes": 2,
+    "tags": [
+      "license:cc",
+      "size_categories:10K<n<100K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2403.07974",
+      "region:us",
+      "code",
+      "code generation"
+    ],
+    "description": "\n\t\n\t\t\n\t\tLiveCodeBench: Holistic and Contamination Free Evaluation of Large Language Models for Code\n\t\n\n\n    \ud83c\udfe0 Home Page \u2022\n    \ud83d\udcbb GitHub Repository  \u2022\n    \ud83c\udfc6 Leaderboard \u2022\n    \ud83d\udcc4 Paper \n\n\n\n\n\t\n\t\t\n\t\n\t\n\t\tChange Log\n\t\n\nSince LiveCodeBench is a continuously updated benchmark, we provide different versions of the dataset. Particularly, we provide the following versions of the dataset:\n\nrelease_v1: The initial release of the dataset with problems released between May 2023 and Mar 2024 containing 400\u2026 See the full description on the dataset page: https://huggingface.co/datasets/lighteval/code_generation_lite.",
+    "search_query": "code generation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "SLM-Lab/benchmark",
+    "author": "SLM-Lab",
+    "lastModified": "2026-02-24 00:20:42+00:00",
+    "downloads": 5506,
+    "likes": 0,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:imagefolder",
+      "modality:image",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tSLM Lab\n\t\n\n\n  Modular Deep Reinforcement Learning framework in PyTorch.\n  \n  Companion library of the book Foundations of Deep Reinforcement Learning.\n  \n  Documentation \u00b7 Benchmark Results\n\n\n\nNOTE: v5.0 updates to Gymnasium, uv tooling, and modern dependencies with ARM support - see CHANGELOG.md.\nBook readers: git checkout v4.1.1 for Foundations of Deep Reinforcement Learning code.\n\n\n\t\n\t\t\n\n\n\n\n\n\t\t\n\n\n\n\n\n\nBeamRider\nBreakout\nKungFuMaster\nMsPacman\n\n\n\n\n\n\n\n\nPong\nQbert\nSeaquest\nSp.Invaders\u2026 See the full description on the dataset page: https://huggingface.co/datasets/SLM-Lab/benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Gabrijel/what_happens_next_kubric_benchmark",
+    "author": "Gabrijel",
+    "lastModified": "2025-10-16 15:30:43+00:00",
+    "downloads": 4186,
+    "likes": 0,
+    "tags": [
+      "license:mit",
+      "arxiv:2509.21592",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\t[Kubric] What Happens Next? Anticipating Future Motion by Generating Point Trajectories\n\t\n\nKubric evaluation dataset with multiple ground truths for the same initial condition from What Happens Next? Anticipating Future Motion by Generating Point Trajectories\n.\nDataset contains ground truth depth, segmentation and point trajectories, starting from every frame. There are 16 scenes (initial conditions) with 64 different future rollouts.\n\nIn-Distribution Objects:\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Gabrijel/what_happens_next_kubric_benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Picovoice/wake-word-benchmark",
+    "author": "Picovoice",
+    "lastModified": "2025-12-05 20:38:29+00:00",
+    "downloads": 4122,
+    "likes": 0,
+    "tags": [
+      "license:apache-2.0",
+      "size_categories:1K<n<10K",
+      "format:audiofolder",
+      "modality:audio",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tWake Word Benchmark\n\t\n\n\nMade in Vancouver, Canada by Picovoice\nThe purpose of this benchmarking framework is to provide a scientific comparison between different wake word detection\nengines in terms of accuracy and runtime metrics. While working on Porcupine\nwe noted that there is a need for such a tool to empower customers to make data-driven decisions.\n\n\t\n\t\t\n\t\n\t\n\t\tResults\n\t\n\n\n\t\n\t\t\n\t\n\t\n\t\tAccuracy\n\t\n\nBelow is the result of running the benchmark framework averaged on six different\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Picovoice/wake-word-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "nebius/SWE-rebench-leaderboard",
+    "author": "nebius",
+    "lastModified": "2026-02-20 22:49:07+00:00",
+    "downloads": 3914,
+    "likes": 21,
+    "tags": [
+      "license:cc-by-4.0",
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "arxiv:2505.20411",
+      "region:us",
+      "code"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nSWE-rebench-leaderboard is a continuously updated, curated subset of the full SWE-rebench corpus, tailored for benchmarking software engineering agents on real-world tasks.\nThese tasks are used in the SWE-rebench leaderboard. For more details on the benchmark methodology and data collection process, please refer to our paper SWE-rebench: An Automated Pipeline for Task Collection and Decontaminated Evaluation of Software Engineering Agents.\nAll Docker images required\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nebius/SWE-rebench-leaderboard.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "sciencialab/grobid-evaluation",
+    "author": "sciencialab",
+    "lastModified": "2025-09-11 15:42:46+00:00",
+    "downloads": 3362,
+    "likes": 0,
+    "tags": [
+      "license:cc-by-4.0",
+      "size_categories:1K<n<10K",
+      "modality:document",
+      "modality:text",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tGrobid End 2 End evaluation dataset\n\t\n\nhttps://grobid.readthedocs.io/en/latest/End-to-end-evaluation/\nOfficial URL: https://zenodo.org/record/7708580\n\nHere are the datasets used for GROBID end-to-end benchmarking covering:\n\nmetadata extraction,\n\nbibliographical reference extraction, parsing and citation context identification, and\n\nfull text body structuring.\n\n\nThe following collections are included:\n\na PubMedCentral gold-standard dataset called PMC_sample_1943, compiled by Alexandru\u2026 See the full description on the dataset page: https://huggingface.co/datasets/sciencialab/grobid-evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "gaia-benchmark/results_public",
+    "author": "gaia-benchmark",
+    "lastModified": "2026-02-24 13:39:04+00:00",
+    "downloads": 3317,
+    "likes": 24,
+    "tags": [
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for \"resultspublic\"\n\t\n\nMore Information needed\n",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Weyaxi/huggingface-leaderboard",
+    "author": "Weyaxi",
+    "lastModified": "2026-02-22 13:42:15+00:00",
+    "downloads": 3281,
+    "likes": 12,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tHuggingface Leaderboard's History Dataset\n\t\n\n\ud83c\udfc6 This is the history dataset of Huggingface Leaderboard. \n\ud83d\uddd2\ufe0f This dataset contains full dataframes in a CSV file for each time lapse.\n\u231b This dataset is automatically updated when space restarts. (Which is approximately every 6 hours)\n\n\t\n\t\t\n\t\tLeaderboard Link\n\t\n\n\ud83d\udd17 Weyaxi/huggingface-leaderboard\n",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "allenai/olmOCR-mix-0225-benchmarkset",
+    "author": "allenai",
+    "lastModified": "2025-07-15 22:11:34+00:00",
+    "downloads": 3207,
+    "likes": 2,
+    "tags": [
+      "license:odc-by",
+      "size_categories:10K<n<100K",
+      "modality:document",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "This is just 10,000 PDFs randomly sampled from https://huggingface.co/datasets/allenai/olmOCR-mix-0225 that we use internally at AI2 for speed benchmarking and also quantization calibration.\n",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "harborframework/terminal-bench-2-leaderboard",
+    "author": "harborframework",
+    "lastModified": "2026-02-23 19:47:23+00:00",
+    "downloads": 3085,
+    "likes": 6,
+    "tags": [
+      "license:apache-2.0",
+      "modality:text",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tTerminal-Bench 2.0 Leaderboard Submissions\n\t\n\nThis repository accepts leaderboard submissions for Terminal-Bench 2.0.\n\n\t\n\t\t\n\t\tHow to Submit\n\t\n\n\nFork this repository\nCreate a new branch for your submission\nAdd your submission (a job or folder of jobs) under submissions/terminal-bench/2.0/<agent>__<model(s)>/\nOpen a Pull Request\n\n\n\t\n\t\t\n\t\tSubmission Structure\n\t\n\nsubmissions/\n  terminal-bench/\n    2.0/\n      <agent>__<model>/\n        metadata.yaml       # Required: agent and model info\u2026 See the full description on the dataset page: https://huggingface.co/datasets/harborframework/terminal-bench-2-leaderboard.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "issai/Food_Portion_Benchmark",
+    "author": "issai",
+    "lastModified": "2025-11-19 10:47:56+00:00",
+    "downloads": 2962,
+    "likes": 4,
+    "tags": [
+      "license:cc-by-nc-4.0",
+      "modality:image",
+      "modality:text",
+      "arxiv:2502.12524",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tFood Portion Benchmark (FPB) Dataset\n\t\n\nThe Food Portion Benchmark (FPB) is a comprehensive dataset and benchmark suite for multi-task food scene understanding, combining food detection and portion size (weight) estimation. It was introduced to support research in dietary analysis, nutrition tracking, and food computing. The dataset is built with high-quality annotations and evaluated using an extended YOLOv12-based multi-task model .\n\n\n\t\n\t\t\n\t\n\t\n\t\t\ud83d\udce6 Dataset Overview\n\t\n\n\nTotal images:\u2026 See the full description on the dataset page: https://huggingface.co/datasets/issai/Food_Portion_Benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Voxel51/qualcomm-exercise-video-dataset-benchmark",
+    "author": "Voxel51",
+    "lastModified": "2025-12-12 17:31:16+00:00",
+    "downloads": 2547,
+    "likes": 1,
+    "tags": [
+      "language:en",
+      "size_categories:n<1K",
+      "modality:video",
+      "library:datasets",
+      "library:mlcroissant",
+      "library:fiftyone",
+      "arxiv:2407.08101",
+      "region:us",
+      "fiftyone",
+      "video"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for Qualcomm Exercise Video Dataset (Benchmark)\n\t\n\nThis is the benchmark split of the dataset as described here\nThis is a FiftyOne dataset with 74 samples.\n\n\n\t\n\t\t\n\t\n\t\n\t\tInstallation\n\t\n\nIf you haven't already, install FiftyOne:\npip install -U fiftyone\n\n\n\t\n\t\t\n\t\n\t\n\t\tUsage\n\t\n\nimport fiftyone as fo\nfrom fiftyone.utils.huggingface import load_from_hub\n\n# Load the dataset\n# Note: other available arguments include 'max_samples', etc\ndataset =\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Voxel51/qualcomm-exercise-video-dataset-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "OALL/AlGhafa-Arabic-LLM-Benchmark-Native",
+    "author": "OALL",
+    "lastModified": "2024-03-07 20:59:00+00:00",
+    "downloads": 2521,
+    "likes": 6,
+    "tags": [
+      "size_categories:10K<n<100K",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2308.16884",
+      "arxiv:2004.01401",
+      "arxiv:1910.07475",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tAlGhafa Arabic LLM Benchmark\n\t\n\n\n\t\n\t\t\n\t\tNew fix: Normalized whitespace characters and ensured consistency across all datasets for improved data quality and compatibility.\n\t\n\nMultiple-choice evaluation benchmark for zero- and few-shot evaluation of Arabic LLMs, we adapt the following tasks:\n\nBelebele Ar MSA Bandarkar et al. (2023): 900 entries\nBelebele Ar Dialects Bandarkar et al. (2023): 5400 entries\nCOPA Ar: 89 entries machine-translated from English COPA and verified by native Arabic\u2026 See the full description on the dataset page: https://huggingface.co/datasets/OALL/AlGhafa-Arabic-LLM-Benchmark-Native.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "yunjinli/Mask-Benchmark",
+    "author": "yunjinli",
+    "lastModified": "2026-01-22 14:24:01+00:00",
+    "downloads": 2175,
+    "likes": 1,
+    "tags": [
+      "task_categories:image-segmentation",
+      "language:en",
+      "license:cc-by-nc-4.0",
+      "size_categories:1K<n<10K",
+      "format:imagefolder",
+      "modality:image",
+      "library:datasets",
+      "library:mlcroissant",
+      "arxiv:2411.19290",
+      "region:us",
+      "novel view synthesis",
+      "dynamic scene novel view segmentation",
+      "3d segmentation",
+      "neural radiance fields",
+      "gaussian splatting"
+    ],
+    "description": "\n\t\n\t\t\n\t\tMask-Benchmark Dataset\n\t\n\nProject Page | Paper | Code\nThis repository contains the dynamic scene novel-view segmentation benchmarks used in the paper \"TRASE: Tracking-free 4D Segmentation and Editing\" (also referred to as \"SADG: Segment Any Dynamic Gaussian Without Object Trackers\"). The benchmarks are designed for evaluating segmentation performance in dynamic novel view synthesis across various datasets.\n\n\t\n\t\t\n\t\n\t\n\t\tOverview\n\t\n\nThe Mask-Benchmark dataset provides ground truth\u2026 See the full description on the dataset page: https://huggingface.co/datasets/yunjinli/Mask-Benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "nithinraok/asr-leaderboard-datasets",
+    "author": "nithinraok",
+    "lastModified": "2025-08-05 15:43:44+00:00",
+    "downloads": 2125,
+    "likes": 1,
+    "tags": [
+      "task_categories:automatic-speech-recognition",
+      "language:bg",
+      "language:cs",
+      "language:da",
+      "language:de",
+      "language:el",
+      "language:en",
+      "language:es",
+      "language:et",
+      "language:fi",
+      "language:fr",
+      "language:hr",
+      "language:hu",
+      "language:it",
+      "language:lt",
+      "language:lv",
+      "language:mt",
+      "language:nl",
+      "language:pl",
+      "language:pt",
+      "language:ro",
+      "language:ru",
+      "language:sk",
+      "language:sl",
+      "language:sv",
+      "language:uk",
+      "license:cc-by-nc-sa-4.0",
+      "size_categories:100K<n<1M",
+      "format:parquet",
+      "modality:audio",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tASR Leaderboard Datasets\n\t\n\nThis repository contains test splits from multiple speech corpora, including FLEURS, Common Voice (MCV), and Multilingual LibriSpeech (MLS).\n\n\t\n\t\t\n\t\tHow to Load\n\t\n\nTo load a specific subset, use load_dataset with the corresponding config_name in the format <set>_<lang>.\nfrom datasets import load_dataset\n\n# Load the FLEURS dataset for Bulgarian\nfleurs_bg = load_dataset(\"nithinraok/asr-leaderboard-datasets\", \"fleurs_bg\")\nprint(fleurs_bg)\n\n# Load the MCV\u2026 See the full description on the dataset page: https://huggingface.co/datasets/nithinraok/asr-leaderboard-datasets.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "getomni-ai/ocr-benchmark",
+    "author": "getomni-ai",
+    "lastModified": "2025-02-21 06:34:31+00:00",
+    "downloads": 2045,
+    "likes": 68,
+    "tags": [
+      "license:mit",
+      "size_categories:1K<n<10K",
+      "format:imagefolder",
+      "modality:image",
+      "modality:text",
+      "library:datasets",
+      "library:mlcroissant",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tOmniAI OCR Benchmark\n\t\n\nA comprehensive benchmark that compares OCR and data extraction capabilities of different multimodal LLMs such as gpt-4o and gemini-2.0, evaluating both text and JSON extraction accuracy.\nBenchmark Results (Feb 2025) | Source Code\n",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "inria-soda/tabular-benchmark",
+    "author": "inria-soda",
+    "lastModified": "2023-09-04 16:37:39+00:00",
+    "downloads": 2023,
+    "likes": 45,
+    "tags": [
+      "task_categories:tabular-classification",
+      "task_categories:tabular-regression",
+      "size_categories:10M<n<100M",
+      "format:csv",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tTabular Benchmark\n\t\n\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\nThis dataset is a curation of various datasets from openML and is curated to benchmark performance of various machine learning algorithms.\n\nRepository: https://github.com/LeoGrin/tabular-benchmark/community\nPaper: https://hal.archives-ouvertes.fr/hal-03723551v2/document\n\n\n\t\n\t\t\n\t\n\t\n\t\tDataset Summary\n\t\n\nBenchmark made of curation of various tabular data learning tasks, including:\n\nRegression from Numerical and Categorical Features\u2026 See the full description on the dataset page: https://huggingface.co/datasets/inria-soda/tabular-benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "MERA-evaluation/MERA",
+    "author": "MERA-evaluation",
+    "lastModified": "2024-09-24 12:55:46+00:00",
+    "downloads": 1802,
+    "likes": 9,
+    "tags": [
+      "language:ru",
+      "license:mit",
+      "size_categories:10K<n<100K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tMERA (Multimodal Evaluation for Russian-language Architectures)\n\t\n\n\n\t\n\t\t\n\t\tSummary\n\t\n\nMERA (Multimodal Evaluation for Russian-language Architectures) is a new open independent benchmark for the evaluation of SOTA models for the Russian language.\nThe MERA benchmark unites industry and academic partners in one place to research the capabilities of fundamental models, draw attention to AI-related issues, foster collaboration within the Russian Federation and in the international arena\u2026 See the full description on the dataset page: https://huggingface.co/datasets/MERA-evaluation/MERA.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "FreedomIntelligence/Medical_Multimodal_Evaluation_Data",
+    "author": "FreedomIntelligence",
+    "lastModified": "2025-01-09 11:12:32+00:00",
+    "downloads": 1679,
+    "likes": 21,
+    "tags": [
+      "task_categories:image-to-text",
+      "task_categories:question-answering",
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:10K<n<100K",
+      "format:json",
+      "modality:image",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2406.19280",
+      "region:us",
+      "medical",
+      "biology"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEvaluation Guide\n\t\n\nThis dataset is used to evaluate medical multimodal LLMs, as used in HuatuoGPT-Vision. It includes benchmarks such as VQA-RAD, SLAKE, PathVQA, PMC-VQA, OmniMedVQA, and MMMU-Medical-Tracks.  \nTo get started:  \n\nDownload the dataset and extract the images.zip file.  \nFind evaluation code on our GitHub: HuatuoGPT-Vision.\n\nThis open-source release aims to simplify the evaluation of medical multimodal capabilities in large models. Please cite the relevant benchmark\u2026 See the full description on the dataset page: https://huggingface.co/datasets/FreedomIntelligence/Medical_Multimodal_Evaluation_Data.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "facebook/ShapeR-Evaluation",
+    "author": "facebook",
+    "lastModified": "2026-01-21 03:24:04+00:00",
+    "downloads": 1670,
+    "likes": 13,
+    "tags": [
+      "task_categories:image-to-3d",
+      "license:cc-by-nc-4.0",
+      "size_categories:n<1K",
+      "arxiv:2601.11514",
+      "region:us",
+      "3d-reconstruction",
+      "3d-generation"
+    ],
+    "description": "\n\t\n\t\t\n\t\tShapeR Evaluation Dataset\n\t\n\n\nWe introduce a new dataset of in-the-wild sequences with paired posed multi-view images, SLAM\npoint clouds, and individually complete 3D shape annotations for 178 objects across 7 diverse scenes. In contrast to existing real-world 3D reconstruction datasets which are either captured in controlled setups or have merged object and background geometries or incomplete shapes, this dataset is designed to capture real-world challenges like occlusions, clutter\u2026 See the full description on the dataset page: https://huggingface.co/datasets/facebook/ShapeR-Evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "InstaDeepAI/genomics-long-range-benchmark",
+    "author": "InstaDeepAI",
+    "lastModified": "2024-06-21 18:16:51+00:00",
+    "downloads": 1638,
+    "likes": 11,
+    "tags": [
+      "language:en",
+      "license:cc-by-nc-sa-4.0",
+      "region:us",
+      "Genomics",
+      "Benchmarks",
+      "Language Models",
+      "DNA"
+    ],
+    "description": "Dataset for benchmark of genomic deep learning models.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "ali-vilab/VACE-Benchmark",
+    "author": "ali-vilab",
+    "lastModified": "2025-10-17 06:51:16+00:00",
+    "downloads": 1592,
+    "likes": 20,
+    "tags": [
+      "language:en",
+      "language:zh",
+      "license:apache-2.0",
+      "size_categories:n<1K",
+      "modality:video",
+      "library:datasets",
+      "library:mlcroissant",
+      "arxiv:2503.07598",
+      "region:us",
+      "art"
+    ],
+    "description": "\n\nVACE: All-in-One Video Creation and Editing\n(ICCV 2025)\n\n    Zeyinzi Jiang*\n    \u00b7\n    Zhen Han*\n    \u00b7\n    Chaojie Mao*\u2020\n    \u00b7\n    Jingfeng Zhang\n    \u00b7\n    Yulin Pan\n    \u00b7\n    Yu Liu\n    \n    Tongyi Lab -  \n    \n    \n        \n        \n        \n        \n    \n\n\n\n\n\t\n\t\t\n\t\tIntroduction\n\t\n\nVACE is an all-in-one model designed for video creation and editing. It encompasses various tasks, including reference-to-video generation (R2V), video-to-video editing (V2V), and masked video-to-video editing\u2026 See the full description on the dataset page: https://huggingface.co/datasets/ali-vilab/VACE-Benchmark.",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "nvidia/cvdp-benchmark-dataset",
+    "author": "nvidia",
+    "lastModified": "2025-07-22 21:47:33+00:00",
+    "downloads": 1239,
+    "likes": 18,
+    "tags": [
+      "license:other",
+      "size_categories:n<1K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "Please see LICENSE and NOTICE for licensing information. See CHANGELOG for changes.\nThis is the Comprehensive Verilog Design Problems (CVDP) benchmark dataset to use with the CVDP infrastructure on GitHub.\n",
+    "search_query": "benchmark",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "ClarusC64/clinical-mechanistic-parsimony-evaluation-v0.1",
+    "author": "ClarusC64",
+    "lastModified": "2026-02-02 12:05:39+00:00",
+    "downloads": 1106,
+    "likes": 0,
+    "tags": [
+      "task_categories:text-classification",
+      "language:en",
+      "license:mit",
+      "size_categories:n<1K",
+      "format:csv",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us",
+      "clarusc64",
+      "clinical",
+      "diagnosis",
+      "differential",
+      "parsimony",
+      "mechanistic-reasoning"
+    ],
+    "description": "What this dataset tests  \nWhether a model can rank diagnoses by mechanistic parsimonyby counting the extra assumptions needed to fit all evidence.\nRequired outputs  \n\nparsimony_rank  \nextra_assumptions_count  \nmechanism_stability_flag\n\nMechanism stability flags  \n\nstable_mechanism  \npatchwork_mechanism  \nunstable_mechanism\n\nTypical failures  \n\nranking by prevalence instead of mechanistic fit  \nomitting the assumption list  \ncalling a patchwork explanation \"stable\"\n\nSuggested prompt wrapper\u2026 See the full description on the dataset page: https://huggingface.co/datasets/ClarusC64/clinical-mechanistic-parsimony-evaluation-v0.1.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "hf-audio/asr-leaderboard-longform",
+    "author": "hf-audio",
+    "lastModified": "2025-11-25 05:30:33+00:00",
+    "downloads": 1104,
+    "likes": 4,
+    "tags": [
+      "size_categories:n<1K",
+      "format:parquet",
+      "modality:audio",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:polars",
+      "library:mlcroissant",
+      "arxiv:2510.06961",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tASR Leaderboard: Longform Test Sets\n\t\n\nThis dataset provides three longform ASR benchmark test sets \u2014 Earnings-21, Earnings-22, and TED-LIUM \u2014 used in the Hugging Face ASR Leaderboard.\nEach dataset is provided in a standardized, Parquet format, ensuring safe, efficient loading through the Hugging Face datasets library.\nThis collection is designed for evaluating longform automatic speech recognition (ASR) models under real-world conditions such as extended audio segments, overlapping\u2026 See the full description on the dataset page: https://huggingface.co/datasets/hf-audio/asr-leaderboard-longform.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "PKU-Alignment/BeaverTails-Evaluation",
+    "author": "PKU-Alignment",
+    "lastModified": "2023-07-20 15:31:24+00:00",
+    "downloads": 946,
+    "likes": 14,
+    "tags": [
+      "task_categories:text-classification",
+      "language:en",
+      "license:cc-by-nc-4.0",
+      "size_categories:n<1K",
+      "format:json",
+      "modality:text",
+      "library:datasets",
+      "library:pandas",
+      "library:mlcroissant",
+      "library:polars",
+      "arxiv:2307.04657",
+      "region:us",
+      "safe",
+      "safety",
+      "ai-safety",
+      "moderation",
+      "rejection-sampling",
+      "llm",
+      "lm",
+      "human-feedback"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for BeaverTails-Evaluation\n\t\n\nBeaverTails is an AI safety-focused collection comprising a series of datasets.\nThis repository contains test prompts specifically designed for evaluating language model safety.\nIt is important to note that although each prompt can be connected to multiple categories, only one category is labeled for each prompt.\nThe 14 harm categories are defined as follows:\n\nAnimal Abuse: This involves any form of cruelty or harm inflicted on animals\u2026 See the full description on the dataset page: https://huggingface.co/datasets/PKU-Alignment/BeaverTails-Evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Weyaxi/followers-leaderboard",
+    "author": "Weyaxi",
+    "lastModified": "2026-02-24 02:47:59+00:00",
+    "downloads": 855,
+    "likes": 4,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tFollower Leaderboard's History Dataset\n\t\n\n\ud83c\udfc6 This is the history dataset of Followers Leaderboard. \n\ud83d\uddd2\ufe0f This dataset contains full dataframes in a CSV file (data.csv file) for each time lapse.\n\u231b This dataset is automatically updated when space restarts. (Which is approximately every 6 hours)\n\n\t\n\t\t\n\t\tLeaderboard Link\n\t\n\n\ud83d\udd17 Followers Leaderboard\n",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "ekacare/eka-medical-asr-evaluation-dataset",
+    "author": "ekacare",
+    "lastModified": "2025-07-30 13:21:04+00:00",
+    "downloads": 641,
+    "likes": 8,
+    "tags": [
+      "task_categories:automatic-speech-recognition",
+      "task_categories:text-to-speech",
+      "language:en",
+      "license:mit",
+      "size_categories:1K<n<10K",
+      "format:parquet",
+      "modality:audio",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us",
+      "dataset",
+      "audio",
+      "speech",
+      "asr"
+    ],
+    "description": "\n\t\n\t\t\n\t\tEka Medical ASR Evaluation Dataset\n\t\n\n\n\t\n\t\t\n\t\tDataset Overview and Sourcing\n\t\n\nThe Eka Medical ASR Evaluation Dataset enables comprehensive evaluation of automatic speech recognition systems designed to transcribe medical speech into accurate text\u2014a fundamental component of any medical scribe system. This dataset captures the unique challenges of processing medical terminology, particularly branded drugs, which is specific to the Indian context.\nThe dataset comprises over 3,900+\u2026 See the full description on the dataset page: https://huggingface.co/datasets/ekacare/eka-medical-asr-evaluation-dataset.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "Lichess/chess-position-evaluations",
+    "author": "Lichess",
+    "lastModified": "2026-01-06 19:57:11+00:00",
+    "downloads": 602,
+    "likes": 17,
+    "tags": [
+      "license:cc0-1.0",
+      "size_categories:100M<n<1B",
+      "format:parquet",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:polars",
+      "library:mlcroissant",
+      "region:us",
+      "chess",
+      "stockfish",
+      "lichess",
+      "games"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for the Lichess Evaluations dataset\n\t\n\n\n\n\t\n\t\t\n\t\tDataset Description\n\t\n\n342,059,879 chess positions evaluated with Stockfish at various depths and node count. Produced by, and for, the Lichess analysis board, running various flavours of Stockfish within user browsers. This version of the dataset is a de-normalized version of the original dataset and contains 844,812,067 rows.\nThis dataset is updated monthly, and was last updated on January 6th, 2026.\n\n\t\n\t\t\n\t\n\t\n\t\tDataset\u2026 See the full description on the dataset page: https://huggingface.co/datasets/Lichess/chess-position-evaluations.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "AQ-MedAI/RAG-QA-Leaderboard",
+    "author": "AQ-MedAI",
+    "lastModified": "2025-11-19 12:42:00+00:00",
+    "downloads": 576,
+    "likes": 8,
+    "tags": [
+      "task_categories:question-answering",
+      "language:en",
+      "license:apache-2.0",
+      "size_categories:10K<n<100K",
+      "modality:text",
+      "region:us",
+      "rag",
+      "medical",
+      "ragbench",
+      "hotpotqa",
+      "2wiki",
+      "musique",
+      "trivialqa",
+      "popqa",
+      "pubmedqa"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Description\n\t\n\nThis collection includes 6 widely-used datasets for open-domain question answering and retrieval evaluation:\n2WikiMultihopQA, HotpotQA,Musique,PopQA,TrivialQA,PubMedQA\nOur evaluation code is at https://github.com/AQ-MedAI/RagQALeaderboard. \n\n\t\n\t\t\n\t\tLeaderboard\n\t\n\nOverall Performance of Different Models on Various Tasks:\n\n\t\n\t\t\nModel\nAVG\nMulti-hop\nSingle-hop\nMedical Domain\n\n\n\t\t\nDeepSeekR1-0528\n79.5\n80\n92.4\n66\n\n\nGPT-4.1-2025-04-14\n78.8\n81.6\n92.8\n62\u2026 See the full description on the dataset page: https://huggingface.co/datasets/AQ-MedAI/RAG-QA-Leaderboard.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "tuandunghcmut/BFCL_evaluation_notebooks",
+    "author": "tuandunghcmut",
+    "lastModified": "2025-12-18 12:49:50+00:00",
+    "downloads": 571,
+    "likes": 0,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tBFCL Evaluation Notebooks and Examples\n\t\n\nThis dataset contains Jupyter notebooks and example data for BFCL (Berkeley Function Call Leaderboard) evaluation.\n\n\t\n\t\t\n\t\tContents\n\t\n\n\n\t\n\t\t\n\t\t\ud83d\udcd3 Jupyter Notebooks\n\t\n\n\ntest_ast_checker.ipynb - Comprehensive testing of AST checker functionality\n\nTests various scenarios: simple, parallel, type checking\nParameter validation and error handling\n10+ test cases with expected outputs\n\n\nconvert_qwen3_to_bfcl.ipynb - Convert Qwen3 format to BFCL format\u2026 See the full description on the dataset page: https://huggingface.co/datasets/tuandunghcmut/BFCL_evaluation_notebooks.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "ssingh22/chess-evaluations",
+    "author": "ssingh22",
+    "lastModified": "2024-09-08 04:13:28+00:00",
+    "downloads": 535,
+    "likes": 1,
+    "tags": [
+      "task_categories:question-answering",
+      "task_categories:token-classification",
+      "license:mit",
+      "size_categories:10M<n<100M",
+      "format:parquet",
+      "modality:tabular",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "library:polars",
+      "doi:10.57967/hf/2926",
+      "region:us",
+      "rl",
+      "chess",
+      "reinforcement learning"
+    ],
+    "description": "\n\t\n\t\t\n\t\tChess Evaluations Dataset\n\t\n\nThis dataset contains chess positions represented in FEN (Forsyth-Edwards Notation) along with their evaluations and next moves for tactical evals. The dataset is divided into three configurations:\n\ntactics: Includes chess positions, their evaluations, and the best move in the position.\nrandoms: Contains random chess positions and their evaluations.\nchess_data: General chess positions with evaluations.\n\nThis is an in progress dataset which contains millions\u2026 See the full description on the dataset page: https://huggingface.co/datasets/ssingh22/chess-evaluations.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "open-llm-leaderboard-old/details_l3utterfly__mistral-7b-v0.1-layla-v2",
+    "author": "open-llm-leaderboard-old",
+    "lastModified": "2023-12-16 17:47:23+00:00",
+    "downloads": 517,
+    "likes": 0,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for Evaluation run of l3utterfly/mistral-7b-v0.1-layla-v2\n\t\n\n\n\nDataset automatically created during the evaluation run of model l3utterfly/mistral-7b-v0.1-layla-v2 on the Open LLM Leaderboard.\nThe dataset is composed of 64 configuration, each one coresponding to one of the evaluated task.\nThe dataset has been created from 2 run(s). Each run can be found as a specific split in each configuration, the split being named using the timestamp of the run.The \"train\" split is\u2026 See the full description on the dataset page: https://huggingface.co/datasets/open-llm-leaderboard-old/details_l3utterfly__mistral-7b-v0.1-layla-v2.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "open-llm-leaderboard-old/details_dfurman__llama-2-13b-dolphin-peft",
+    "author": "open-llm-leaderboard-old",
+    "lastModified": "2023-12-03 19:53:04+00:00",
+    "downloads": 456,
+    "likes": 0,
+    "tags": [
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for Evaluation run of dfurman/llama-2-13b-dolphin-peft\n\t\n\n\n\t\n\t\t\n\t\tDataset Summary\n\t\n\nDataset automatically created during the evaluation run of model dfurman/llama-2-13b-dolphin-peft on the Open LLM Leaderboard.\nThe dataset is composed of 64 configuration, each one coresponding to one of the evaluated task.\nThe dataset has been created from 5 run(s). Each run can be found as a specific split in each configuration, the split being named using the timestamp of the run.The\u2026 See the full description on the dataset page: https://huggingface.co/datasets/open-llm-leaderboard-old/details_dfurman__llama-2-13b-dolphin-peft.",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "DL3DV/DL3DV-Evaluation",
+    "author": "DL3DV",
+    "lastModified": "2025-09-16 09:11:13+00:00",
+    "downloads": 455,
+    "likes": 2,
+    "tags": [
+      "size_categories:100K<n<1M",
+      "format:webdataset",
+      "modality:image",
+      "modality:text",
+      "modality:video",
+      "library:datasets",
+      "library:webdataset",
+      "library:mlcroissant",
+      "region:us",
+      "3D vision",
+      "novel view synthesis",
+      "NeRF",
+      "3D Gaussian Splatting",
+      "Generalizable NeRF",
+      "Generative Methods",
+      "text-to-3d",
+      "image-to-3d"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDL3DV Testing Split Download Instructions\n\t\n\nThis repo contains all 55 scenes for evaluation. Note: it is an independent dataset, and none of its scenes overlap with those in DL3DV-10K. Have a galance on the preview page: https://dl3dv-10k.github.io/DL3DV-Testing-Split-Preview/.\n\n\t\n\t\t\n\t\tDownload\n\t\n\nAs the whole benchmark dataset is ~500G, a python script to download and untar files. \n\n\t\n\t\t\n\t\tEnvironment Setup\n\t\n\nThe download script relies on huggingface hub, tqdm.  You can download by\u2026 See the full description on the dataset page: https://huggingface.co/datasets/DL3DV/DL3DV-Evaluation.",
+    "search_query": "evaluation",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  },
+  {
+    "id": "open-rl-leaderboard/results_v2",
+    "author": "open-rl-leaderboard",
+    "lastModified": "2024-12-07 20:19:13+00:00",
+    "downloads": 448,
+    "likes": 1,
+    "tags": [
+      "size_categories:10M<n<100M",
+      "format:parquet",
+      "modality:text",
+      "library:datasets",
+      "library:dask",
+      "library:mlcroissant",
+      "library:polars",
+      "region:us"
+    ],
+    "description": "\n\t\n\t\t\n\t\tDataset Card for \"results_v2\"\n\t\n\nLeaderboard\nMore Information needed\n",
+    "search_query": "leaderboard",
+    "benchmark_score": 2,
+    "benchmark_reasons": [
+      "keyword_in_description",
+      "benchmark_name"
+    ]
+  }
+]

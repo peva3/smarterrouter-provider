@@ -1,0 +1,211 @@
+# Provider DB Configuration
+# Settings for building provider.db database
+
+# API Configuration
+api:
+  # OpenRouter API settings
+  openrouter:
+    base_url: "https://openrouter.ai/api/v1"
+    timeout: 30  # seconds
+    max_retries: 3
+  
+  # Rate limiting for external APIs
+  rate_limits:
+    default: 1.0  # calls per second
+    openrouter: 2.0
+    lmsys: 1.0
+    livebench: 0.5
+    bigcodebench: 0.5
+    mmlu: 0.5
+
+# Database Configuration
+database:
+  # Schema settings
+  table_name: "model_benchmarks"
+  aliases_table: "aliases"
+  metadata_table: "metadata"
+  
+  # Performance settings
+  vacuum_after_build: true
+  wal_mode: true  # Write-Ahead Logging for concurrent access
+  
+  # Validation settings
+  validate_scores: true
+  score_ranges:
+    reasoning: [0.0, 100.0]
+    coding: [0.0, 100.0]
+    general: [0.0, 100.0]
+    elo: [1000, 2000]
+
+# Source Configuration
+sources:
+  # Critical sources (required for RouterEngine compatibility)
+  critical:
+    - name: "lmsys"
+      category: "elo"
+      url: "https://raw.githubusercontent.com/lm-sys/arena-leaderboard/main/data/elo_ratings.json"
+      fallback_url: "https://arena.ai/api/v1/leaderboard"
+    
+    - name: "livebench"
+      category: "reasoning"
+      url: "https://raw.githubusercontent.com/livebench/livebench/main/results/aggregated.json"
+    
+    - name: "bigcodebench"
+      category: "coding"
+      url: "https://raw.githubusercontent.com/bigcode-project/bigcodebench/main/results/aggregated.json"
+    
+    - name: "mmlu"
+      category: "general"
+      url: "https://raw.githubusercontent.com/hendrycks/test/main/results/mmlu.json"
+  
+  # Optional sources (improve coverage and accuracy)
+  optional:
+    - name: "arena"
+      category: "elo"
+      url: "https://arena.ai/api/v1/leaderboard"
+    
+    - name: "gsm8k"
+      category: "reasoning"
+      url: "https://raw.githubusercontent.com/openai/grade-school-math/main/results.json"
+    
+    - name: "humaneval"
+      category: "coding"
+      url: "https://raw.githubusercontent.com/openai/human-eval/main/results.json"
+    
+    - name: "swebench"
+      category: "coding"
+      url: "https://raw.githubusercontent.com/princeton-nlp/SWE-bench/main/results.json"
+    
+    - name: "math"
+      category: "reasoning"
+      url: "https://huggingface.co/datasets/nlile/math_benchmark_test_saturation"
+    
+    - name: "hellaswag"
+      category: "reasoning"
+      url: "https://huggingface.co/datasets/Rowan/hellaswag"
+    
+    - name: "truthfulqa"
+      category: "general"
+      url: "https://huggingface.co/datasets/truthfulqa/truthful_qa"
+    
+    - name: "multilingual"
+      category: "general"
+      url: "https://huggingface.co/datasets/ceval/ceval-exam"
+    
+    - name: "safety"
+      category: "general"
+      url: "https://huggingface.co/datasets/safe-rlhf/safe-rlhf"
+
+# Heuristic Configuration
+heuristics:
+  # Provider reputation baselines
+  provider_baselines:
+    tier1:
+      providers: ["openai", "anthropic", "google", "deepseek"]
+      baseline_score: 85.0
+    tier2:
+      providers: ["meta", "mistral", "qwen", "moonshot"]
+      baseline_score: 75.0
+    tier3:
+      providers: ["amazon", "allenai", "arcee", "nous", "perplexity", "baidu"]
+      baseline_score: 65.0
+    tier4:
+      baseline_score: 50.0
+  
+  # Size-based modifiers
+  size_modifiers:
+    "405B": 1.35
+    "70B-100B": 1.25
+    "30B-70B": 1.15
+    "13B-30B": 1.05
+    "7B-13B": 0.95
+    "3B-7B": 0.85
+    "<3B": 0.75
+  
+  # Variant detection
+  variant_modifiers:
+    reasoning:
+      reasoning_score: 1.35
+      coding_score: 1.15
+    coding:
+      coding_score: 1.5
+    vision:
+      general_score: 1.15
+    search:
+      general_score: 1.2
+      coding_score: 0.7
+    safety:
+      all_scores: 0.75
+    free:
+      all_scores: 0.85
+    flash:
+      all_scores: 0.85
+    premier:
+      all_scores: 1.15
+
+# Capability Detection
+capabilities:
+  # Vision capability keywords (RouterEngine uses these for detection)
+  vision_keywords:
+    - "llava"
+    - "pixtral"
+    - "vision"
+    - "gpt-4o"
+    - "claude-3"
+    - "claude-3.5"
+    - "gemini"
+    - "minicpm"
+    - "moondream"
+  
+  # Tool capability keywords
+  tool_keywords:
+    - "gpt-4"
+    - "claude-3"
+    - "claude-3.5"
+    - "mistral-large"
+    - "qwen2.5"
+    - "qwen-2.5"
+    - "llama3.1"
+    - "llama-3.1"
+    - "command-r"
+    - "hermes"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "provider_db.log"
+  max_size_mb: 10
+  backup_count: 5
+
+# Build Configuration
+build:
+  # Parallelism settings
+  max_concurrent_sources: 10
+  max_concurrent_requests: 5
+  
+  # Performance settings
+  use_cache: true
+  cache_ttl_hours: 24
+  
+  # Output settings
+  output_dir: "./data"
+  database_name: "provider.db"
+  
+  # Validation settings
+  validate_before_write: true
+  create_backup: true
+
+# Monitoring Configuration
+monitoring:
+  # Health check settings
+  health_check_interval: 300  # seconds
+  max_build_duration: 1800  # seconds (30 minutes)
+  
+  # Alert thresholds
+  min_model_coverage: 0.95  # 95% of OpenRouter models
+  min_critical_sources: 3   # At least 3 of 4 critical sources
+  
+  # Metrics collection
+  enable_prometheus: false
+  prometheus_port: 9090
