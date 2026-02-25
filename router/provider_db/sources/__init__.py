@@ -39,6 +39,7 @@ __all__ = [
     'fetch_chinese_coding',
     'fetch_chinese_elo',
     'fetch_extended_elo',
+    'fetch_open_llm_leaderboard',
     'estimate_scores',
     'fetch_heuristics',
 ]
@@ -130,6 +131,9 @@ def __getattr__(name):
     elif name == 'fetch_extended_elo':
         from .extended_elo import fetch_extended_elo
         return fetch_extended_elo
+    elif name == 'fetch_open_llm_leaderboard':
+        from .open_llm_leaderboard import fetch_open_llm_leaderboard
+        return fetch_open_llm_leaderboard
     elif name == 'fetch_tool_use':
         from .tool_use import fetch_tool_use
         return fetch_tool_use

@@ -92,6 +92,7 @@ SOURCE_BASE_WEIGHTS: dict[str, float] = {
     'chinese_coding': 0.8,
     'chinese_elo': 0.7,
     'extended_elo': 0.9,
+    'open_llm_leaderboard': 0.9,  # New - IFEval and other benchmarks
     'ailuminate': 0.8,
     'megabench': 0.8,
     'helm': 0.8,
@@ -320,6 +321,14 @@ class BenchmarkBuilder:
         logger.info(f"Models with coding: {self.stats['models_with_coding']}")
         logger.info(f"Models with general: {self.stats['models_with_general']}")
         logger.info(f"Models with ELO: {self.stats['models_with_elo']}")
+        
+        # Generate HTML report
+        try:
+            from .html_export import generate_report
+            html_path = generate_report(self.db_path)
+            logger.info(f"HTML report generated: {html_path}")
+        except Exception as e:
+            logger.warning(f"Failed to generate HTML report: {e}")
         
         return self.stats
     
@@ -1046,6 +1055,21 @@ class BenchmarkBuilder:
                 self.stats['sources_failed'].append('safety')
                 return {'general': {}}
         
+        async def fetch_open_llm_leaderboard():
+            """Open LLM Leaderboard results - includes IFEval, MMLU-Pro, BBH, GPQA, MATH, MuSR."""
+            try:
+                from .sources import open_llm_leaderboard
+                self.stats['sources_attempted'].append('open_llm_leaderboard')
+                result = await open_llm_leaderboard.fetch_open_llm_leaderboard()
+                if result:
+                    self.stats['sources_succeeded'].append('open_llm_leaderboard')
+                    logger.info(f"OpenLLM: fetched {len(result)} general scores")
+                return {'general': result}
+            except Exception as e:
+                logger.error(f"OpenLLM fetch failed: {e}")
+                self.stats['sources_failed'].append('open_llm_leaderboard')
+                return {'general': {}}
+        
         # Define critical sources (required for RouterEngine compatibility)
         CRITICAL_SOURCES = {
             'lmsys': fetch_lmsys,      # ELO - required
@@ -1100,6 +1124,7 @@ class BenchmarkBuilder:
             ('truthfulqa', fetch_truthfulqa),
             ('multilingual', fetch_multilingual),
             ('safety', fetch_safety),
+            ('open_llm_leaderboard', fetch_open_llm_leaderboard),
         ]
         
         for name, fetch_func in optional_sources:
