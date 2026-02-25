@@ -77,6 +77,8 @@ SOURCE_BASE_WEIGHTS: dict[str, float] = {
     'gpqa': 0.8,
     'bigcodebench': 1.0,
     'humaneval': 0.9,
+    'evalplus': 0.9,
+    'latest_benchmarks': 1.0,  # Highest priority - official benchmark data
     'swe_bench': 0.9,
     'aider': 0.8,
     'livecodebench': 0.8,
@@ -89,6 +91,7 @@ SOURCE_BASE_WEIGHTS: dict[str, float] = {
     'chinese_reasoning': 0.8,
     'chinese_coding': 0.8,
     'chinese_elo': 0.7,
+    'extended_elo': 0.9,
     'ailuminate': 0.8,
     'megabench': 0.8,
     'helm': 0.8,
@@ -188,15 +191,21 @@ class BenchmarkBuilder:
                 all_models_before = self.db.list_all_benchmarks()
                 archived_before = {m['model_id'] for m in all_models_before if m.get('archived', 0)}
                 
-                # Import heuristics for score estimation
+                # Import heuristics and auto_discover for score estimation
                 from .sources import heuristics
+                from .sources.auto_discover import generate_autodiscover_score, is_likely_new_version
+                
+                # Get existing model IDs from database for comparison
+                existing_models = set(self.db.get_all_model_ids())
                 
                 # Add any OpenRouter models that don't have benchmark data yet
                 added_count = 0
                 estimated_count = 0
+                autodiscover_count = 0
+                
                 for model_id in openrouter_models:
                     if model_id not in aggregated:
-                        # Try to estimate scores using heuristics first
+                        # First try heuristics
                         estimated = heuristics.estimate_scores(model_id)
                         if estimated:
                             aggregated[model_id] = ModelBenchmark(
@@ -207,6 +216,19 @@ class BenchmarkBuilder:
                                 elo_rating=int(estimated["elo_rating"])
                             )
                             estimated_count += 1
+                        elif is_likely_new_version(model_id):
+                            # Try auto-discovery for new version models
+                            auto_est = generate_autodiscover_score(model_id, existing_models)
+                            if auto_est:
+                                aggregated[model_id] = ModelBenchmark(
+                                    model_id=model_id,
+                                    reasoning_score=auto_est["reasoning"],
+                                    coding_score=auto_est["coding"],
+                                    general_score=auto_est["general"],
+                                    elo_rating=int(auto_est["elo"])
+                                )
+                                autodiscover_count += 1
+                                logger.info(f"Auto-discovered scores for new model: {model_id}")
                         else:
                             # Create ModelBenchmark with all defaults (0 scores, 1000 ELO)
                             aggregated[model_id] = ModelBenchmark(
@@ -221,15 +243,40 @@ class BenchmarkBuilder:
                 # Always set stats, even if zero
                 self.stats['models_added_defaults'] = added_count
                 self.stats['models_estimated'] = estimated_count
-                if added_count > 0 or estimated_count > 0:
+                self.stats['models_autodiscovered'] = autodiscover_count
+                if added_count > 0 or estimated_count > 0 or autodiscover_count > 0:
                     logger.info(f"Added {added_count} OpenRouter models with default scores")
                     logger.info(f"Estimated scores for {estimated_count} OpenRouter models using heuristics")
+                    logger.info(f"Auto-discovered {autodiscover_count} new model scores")
                     
             except Exception as e:
                 logger.warning(f"Failed to fetch OpenRouter models: {e}. Proceeding with only benchmarked models.")
                 # Ensure stats keys exist for consistency
                 self.stats['models_added_defaults'] = 0
                 self.stats['models_estimated'] = 0
+            
+            # Apply heuristics to models with no benchmark scores (100% coverage)
+            # This happens BEFORE writing to DB
+            from .sources import heuristics
+            heuristics_applied = 0
+            for model_id, data in aggregated.items():
+                # Apply heuristics to models with no scores at all, OR with ELO but no benchmarks
+                if data.reasoning_score == 0 and data.coding_score == 0 and data.general_score == 0:
+                    estimated = heuristics.estimate_scores(model_id)
+                    if estimated:
+                        # Use estimated ELO if available, otherwise keep original
+                        elo = int(estimated["elo_rating"]) if estimated["elo_rating"] > data.elo_rating else data.elo_rating
+                        aggregated[model_id] = ModelBenchmark(
+                            model_id=model_id,
+                            reasoning_score=estimated["reasoning_score"],
+                            coding_score=estimated["coding_score"],
+                            general_score=estimated["general_score"],
+                            elo_rating=elo
+                        )
+                        heuristics_applied += 1
+            
+            if heuristics_applied > 0:
+                logger.info(f"Applied heuristics to {heuristics_applied} models for 100% coverage")
             
             # Write to database
             logger.info(f"Writing {len(aggregated)} models to database...")
@@ -246,7 +293,6 @@ class BenchmarkBuilder:
             self._update_metadata()
             
             self.stats['total_models'] = len(aggregated)
-            self.stats['total_aliases'] = aliases_created
             
             # Count models with each score type
             for model_id, data in aggregated.items():
@@ -334,6 +380,25 @@ class BenchmarkBuilder:
             except Exception as e:
                 logger.error(f"Chinese ELO fetch failed: {e}")
                 self.stats['sources_failed'].append('chinese_elo')
+                return {'elo': {}}
+        
+        @rate_limited(self.rate_limiter)
+        
+        async def fetch_extended_elo():
+            """Extended ELO (comprehensive model coverage)."""
+            try:
+                from .sources import extended_elo
+                self.stats['sources_attempted'].append('extended_elo')
+                result = await asyncio.to_thread(extended_elo.fetch_extended_elo)
+                if result:
+                    self.stats['sources_succeeded'].append('extended_elo')
+                    logger.info(f"Extended ELO: fetched {len(result)} ELO ratings")
+                else:
+                    self.stats['sources_failed'].append('extended_elo')
+                return {'elo': result}
+            except Exception as e:
+                logger.error(f"Extended ELO fetch failed: {e}")
+                self.stats['sources_failed'].append('extended_elo')
                 return {'elo': {}}
         
         # ============ REASONING SOURCES ============
@@ -607,6 +672,57 @@ class BenchmarkBuilder:
                 logger.error(f"HumanEval fetch failed: {e}")
                 self.stats['sources_failed'].append('humaneval')
                 return {'coding': {}}
+        
+        @rate_limited(self.rate_limiter)
+
+        
+        async def fetch_evalplus():
+            """EvalPlus (rigorous code evaluation)."""
+            try:
+                from .sources import evalplus
+                self.stats['sources_attempted'].append('evalplus')
+                result = await asyncio.to_thread(evalplus.fetch_evalplus)
+                if result:
+                    self.stats['sources_succeeded'].append('evalplus')
+                    logger.info(f"EvalPlus: fetched {len(result)} coding scores")
+                else:
+                    self.stats['sources_failed'].append('evalplus')
+                return {'coding': result}
+            except Exception as e:
+                logger.error(f"EvalPlus fetch failed: {e}")
+                self.stats['sources_failed'].append('evalplus')
+                return {'coding': {}}
+        
+        @rate_limited(self.rate_limiter)
+        
+        async def fetch_latest_benchmarks():
+            """Latest benchmarks from press releases (2025-2026 frontier models)."""
+            try:
+                from .sources import latest_benchmarks
+                self.stats['sources_attempted'].append('latest_benchmarks')
+                result = latest_benchmarks.fetch_latest_benchmarks()
+                if result:
+                    self.stats['sources_succeeded'].append('latest_benchmarks')
+                    logger.info(f"Latest Benchmarks: fetched {len(result)} models")
+                    # Convert to category format
+                    converted = {'reasoning': {}, 'coding': {}, 'general': {}, 'elo': {}}
+                    for model, data in result.items():
+                        if 'reasoning' in data:
+                            converted['reasoning'][model] = data['reasoning']
+                        if 'coding' in data:
+                            converted['coding'][model] = data['coding']
+                        if 'general' in data:
+                            converted['general'][model] = data['general']
+                        if 'elo' in data:
+                            converted['elo'][model] = data['elo']
+                    return converted
+                else:
+                    self.stats['sources_failed'].append('latest_benchmarks')
+                return {'reasoning': {}, 'coding': {}, 'general': {}, 'elo': {}}
+            except Exception as e:
+                logger.error(f"Latest Benchmarks fetch failed: {e}")
+                self.stats['sources_failed'].append('latest_benchmarks')
+                return {'reasoning': {}, 'coding': {}, 'general': {}, 'elo': {}}
         
         @rate_limited(self.rate_limiter)
 
@@ -960,6 +1076,8 @@ class BenchmarkBuilder:
             ('stateval', fetch_stateval),
             ('gpqa', fetch_gpqa),
             ('humaneval', fetch_humaneval),
+            ('evalplus', fetch_evalplus),
+            ('latest_benchmarks', fetch_latest_benchmarks),
             ('swebench', fetch_swebench),
             ('aider', fetch_aider),
             ('livecodebench', fetch_livecodebench),
@@ -971,6 +1089,7 @@ class BenchmarkBuilder:
             ('chinese_reasoning', fetch_chinese_reasoning),
             ('chinese_coding', fetch_chinese_coding),
             ('chinese_elo', fetch_chinese_elo),
+            ('extended_elo', fetch_extended_elo),
             ('ailuminate', fetch_ailuminate),
             ('megabench', fetch_megabench),
             ('helm', fetch_helm),

@@ -105,17 +105,19 @@ chmod +x docker-build.sh
 
 ## 📦 What's Inside
 
-**36 Benchmark Sources** including:
+**40+ Benchmark Sources** including:
 - **LMSYS Chatbot Arena** (ELO)
-- **LiveBench** (reasoning)
-- **BigCodeBench** (coding)
-- **MMLU** (general knowledge)
-- **SWE-bench, Aider, HumanEval** (coding variants)
+- **LiveBench** (reasoning - combined sources)
+- **BigCodeBench, EvalPlus** (coding)
+- **MMLU, MMLU-Pro** (general knowledge)
+- **SWE-bench, Aider, HumanEval, LiveCodeBench** (coding variants)
 - **GSM8K, ARC, BBH, MathVista, AGIEval** (reasoning variants)
 - **FrontierMath, AIME, SciCode** (advanced math/coding)
 - **MEGA-Bench, MixEval-X** (multimodal)
 - **Chinese benchmarks** (C-Eval, C-MMLU, Chinese reasoning, Chinese coding, Chinese ELO)
 - **Tool Use, Vision**
+- **TruthfulQA, HellaSwag** (commonsense/factual)
+- **GPQA, StateVal** (domain-specific)
 - **AILuminate, Domain-Specific, HELM**
 - **Hendrycks MATH** (advanced math reasoning)
 - **HellaSwag** (commonsense reasoning)

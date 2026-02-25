@@ -1,7 +1,7 @@
 """
 LiveBench - fetch reasoning scores.
 Primary source for reasoning_score (0-100).
-Uses HuggingFace dataset livebench/model_judgment (leaderboard split).
+Uses multiple sources: LiveBench, and aggregates with other reasoning sources.
 """
 
 from typing import Dict
@@ -12,30 +12,40 @@ async def fetch_livebench() -> Dict[str, float]:
     """Return dict: model_id -> reasoning_score (0-100)."""
     scores = {}
     
+    # Try LiveBench first
+    scores = _try_livebench_judgment()
+    if scores:
+        return scores
+    
+    # Fallback to combined reasoning sources
+    scores = _combine_reasoning_sources()
+    if scores:
+        print(f"LiveBench: using combined reasoning sources: {len(scores)} scores")
+        return scores
+    
+    # Final fallback to static scores
+    return _fallback_scores()
+
+
+def _try_livebench_judgment() -> Dict[str, float]:
+    """Try to fetch from LiveBench HuggingFace datasets."""
     try:
         from datasets import load_dataset
         
         dataset = load_dataset('livebench/model_judgment', split='leaderboard')
         if not dataset or len(dataset) == 0:
             print("LiveBench: empty dataset")
-            return _fallback_scores()
-        
-        # Filter for reasoning category
-        reasoning_data = [row for row in dataset if row['category'] == 'reasoning']
-        if not reasoning_data:
-            print("LiveBench: no reasoning category data - skipping")
             return {}
         
-        # Group by model
+        # Try all available categories and average
         model_scores = {}
-        for row in reasoning_data:
-            model = row['model']
-            score = row['score']
+        for row in dataset:
+            model = row.get('model') or row.get('model_id')
+            score = row.get('score')
             if model is None or score is None:
                 continue
             try:
                 s = float(score)
-                # Ensure 0-100
                 if s <= 1.0:
                     s *= 100
                 s = max(0.0, min(100.0, s))
@@ -44,6 +54,7 @@ async def fetch_livebench() -> Dict[str, float]:
                 continue
         
         # Average per model
+        scores = {}
         for model, score_list in model_scores.items():
             avg_score = sum(score_list) / len(score_list)
             canonical = model_mapper.to_canonical(str(model))
@@ -51,19 +62,116 @@ async def fetch_livebench() -> Dict[str, float]:
                 scores[canonical] = avg_score
         
         if scores:
-            print(f"LiveBench: {len(scores)} reasoning scores")
+            print(f"LiveBench: {len(scores)} reasoning scores (from model_judgment)")
             return scores
-        else:
-            print("LiveBench: no valid model mappings")
-            return _fallback_scores()
         
-    except ImportError:
-        print("LiveBench: 'datasets' library not installed")
     except Exception as e:
-        print(f"LiveBench: {e}")
+        print(f"LiveBench: error loading dataset: {e}")
     
-    # Fallback to static scores if dataset fails
-    return _fallback_scores()
+    return {}
+
+
+def _combine_reasoning_sources() -> Dict[str, float]:
+    """Combine scores from multiple reasoning sources."""
+    scores = {}
+    
+    # Try GSM8K
+    try:
+        from . import gsm8k
+        gsm_scores = gsm8k.fetch_gsm8k()
+        for model, score in gsm_scores.items():
+            scores.setdefault(model, []).append(('gsm8k', score))
+    except Exception as e:
+        pass
+    
+    # Try ARC
+    try:
+        from . import arc
+        arc_scores = arc.fetch_arc()
+        for model, score in arc_scores.items():
+            scores.setdefault(model, []).append(('arc', score))
+    except Exception as e:
+        pass
+    
+    # Try BBH
+    try:
+        from . import bbh
+        bbh_scores = bbh.fetch_bbh()
+        for model, score in bbh_scores.items():
+            scores.setdefault(model, []).append(('bbh', score))
+    except Exception as e:
+        pass
+    
+    # Try AGIEval
+    try:
+        from . import agieval
+        agi_scores = agieval.fetch_agieval()
+        for model, score in agi_scores.items():
+            scores.setdefault(model, []).append(('agieval', score))
+    except Exception as e:
+        pass
+    
+    # Try MATHVista
+    try:
+        from . import mathvista
+        mathv_scores = mathvista.fetch_mathvista()
+        for model, score in mathv_scores.items():
+            scores.setdefault(model, []).append(('mathvista', score))
+    except Exception as e:
+        pass
+    
+    # Try AIME
+    try:
+        from . import aime
+        aime_scores = aime.fetch_aime()
+        for model, score in aime_scores.items():
+            scores.setdefault(model, []).append(('aime', score))
+    except Exception as e:
+        pass
+    
+    # Try FrontierMath
+    try:
+        from . import frontiermath
+        fm_scores = frontiermath.fetch_frontiermath()
+        for model, score in fm_scores.items():
+            scores.setdefault(model, []).append(('frontiermath', score))
+    except Exception as e:
+        pass
+    
+    # Try Chinese reasoning
+    try:
+        from . import chinese_reasoning
+        cn_scores = chinese_reasoning.fetch_chinese_reasoning()
+        for model, score in cn_scores.items():
+            scores.setdefault(model, []).append(('chinese_reasoning', score))
+    except Exception as e:
+        pass
+    
+    # Average the scores for each model
+    result = {}
+    weights = {
+        'gsm8k': 1.0,
+        'arc': 0.9,
+        'bbh': 0.9,
+        'agieval': 0.8,
+        'mathvista': 0.8,
+        'aime': 0.8,
+        'frontiermath': 0.8,
+        'chinese_reasoning': 0.8,
+    }
+    
+    for model, score_list in scores.items():
+        weighted_sum = 0.0
+        weight_total = 0.0
+        for source, score in score_list:
+            w = weights.get(source, 0.8)
+            weighted_sum += score * w
+            weight_total += w
+        
+        if weight_total > 0:
+            result[model] = weighted_sum / weight_total
+    
+    return result
 
 
 def _fallback_scores() -> Dict[str, float]:

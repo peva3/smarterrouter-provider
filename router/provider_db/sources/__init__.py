@@ -8,6 +8,8 @@ __all__ = [
     'LiveBenchFetcher', 
     'fetch_livebench',
     'fetch_bigcodebench',
+    'fetch_evalplus',
+    'fetch_latest_benchmarks',
     'fetch_mmlu',
     'OpenRouterFetcher',
     'fetch_openrouter_models',
@@ -36,6 +38,7 @@ __all__ = [
     'fetch_chinese_reasoning',
     'fetch_chinese_coding',
     'fetch_chinese_elo',
+    'fetch_extended_elo',
     'estimate_scores',
     'fetch_heuristics',
 ]
@@ -52,6 +55,12 @@ def __getattr__(name):
     elif name == 'fetch_bigcodebench':
         from .bigcodebench import fetch_bigcodebench
         return fetch_bigcodebench
+    elif name == 'fetch_evalplus':
+        from .evalplus import fetch_evalplus
+        return fetch_evalplus
+    elif name == 'fetch_latest_benchmarks':
+        from .latest_benchmarks import fetch_latest_benchmarks
+        return fetch_latest_benchmarks
     elif name == 'fetch_mmlu':
         from .mmlu import fetch_mmlu
         return fetch_mmlu
@@ -118,6 +127,9 @@ def __getattr__(name):
     elif name == 'fetch_chinese_elo':
         from .chinese_elo import fetch_chinese_elo
         return fetch_chinese_elo
+    elif name == 'fetch_extended_elo':
+        from .extended_elo import fetch_extended_elo
+        return fetch_extended_elo
     elif name == 'fetch_tool_use':
         from .tool_use import fetch_tool_use
         return fetch_tool_use

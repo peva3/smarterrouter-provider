@@ -271,6 +271,56 @@ def cmd_validate(args):
         return 0
 
 
+def cmd_discover(args):
+    """Auto-discover new models and update benchmarks."""
+    from .sources.auto_discover import generate_autodiscover_score, is_likely_new_version
+    from .sources.openrouter import OpenRouterFetcher
+    
+    db_path = Path(args.db_path) if args.db_path else get_default_db_path()
+    
+    if not db_path.exists():
+        print(f"Error: Database not found at {db_path}")
+        return 1
+    
+    db = ProviderDB(db_path)
+    
+    print("\n=== Auto-Discover New Models ===\n")
+    
+    # Get existing models from database
+    existing = set(db.get_all_model_ids())
+    print(f"Existing models in database: {len(existing)}")
+    
+    # Fetch latest from OpenRouter
+    print("Fetching latest from OpenRouter...")
+    or_models = asyncio.run(OpenRouterFetcher().fetch())
+    new_models = set(or_models) - existing
+    print(f"New models on OpenRouter: {len(new_models)}")
+    
+    # Find new versions
+    new_versions = [m for m in new_models if is_likely_new_version(m)]
+    print(f"New version models detected: {len(new_versions)}")
+    
+    if not new_versions:
+        print("\nNo new version models found.")
+        return 0
+    
+    print("\nNew models found:")
+    for model in sorted(new_versions)[:20]:
+        est = generate_autodiscover_score(model, existing)
+        if est:
+            print(f"  {model}")
+            print(f"    -> R:{est['reasoning']:.1f} C:{est['coding']:.1f} G:{est['general']:.1f} ELO:{est['elo']}")
+        else:
+            print(f"  {model} (no estimate)")
+    
+    if args.dry_run:
+        print("\n[DRY RUN] No changes made.")
+        return 0
+    
+    print("\nTo add these models, run: python -m router.provider_db build")
+    return 0
+
+
 def cmd_inspect(args):
     """Inspect a specific model."""
     db_path = Path(args.db_path) if args.db_path else get_default_db_path()
@@ -369,6 +419,20 @@ def main():
         help='Model ID to inspect'
     )
     inspect_parser.set_defaults(func=cmd_inspect)
+    
+    # Auto-discover command - find and update new models
+    discover_parser = subparsers.add_parser('discover', help='Auto-discover new models and update benchmarks')
+    discover_parser.add_argument(
+        '--db-path',
+        type=Path,
+        help='Path to database file'
+    )
+    discover_parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Show what would be updated without making changes'
+    )
+    discover_parser.set_defaults(func=cmd_discover)
     
     args = parser.parse_args()
     
