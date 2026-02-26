@@ -289,6 +289,7 @@ class BenchmarkBuilder:
             # Generate aliases
             logger.info("Generating aliases...")
             aliases_created = self._generate_aliases(aggregated)
+            self.stats['total_aliases'] = aliases_created
             
             # Update metadata
             self._update_metadata()
@@ -338,8 +339,6 @@ class BenchmarkBuilder:
         
         # ============ ELO SOURCES ============
         @rate_limited(self.rate_limiter)
-        @rate_limited(self.rate_limiter)
-
         async def fetch_lmsys():
             """LMSYS Chatbot Arena (primary ELO)."""
             try:
@@ -358,8 +357,6 @@ class BenchmarkBuilder:
                 return {'elo': {}}
         
         @rate_limited(self.rate_limiter)
-        @rate_limited(self.rate_limiter)
-
         async def fetch_arena():
             """Arena.ai (secondary ELO, lower priority)."""
             try:
