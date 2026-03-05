@@ -35,27 +35,72 @@ def _fallback_scores() -> Dict[str, float]:
     These are pass@1 rates (percentage of problems solved correctly).
     """
     known = {
-        # Top models (2024-2025)
-        "gpt-4o": 89.5,
-        "gpt-4-turbo": 87.5,
+        # Top models (2025-2026)
+        "claude-4-opus": 95.0,
+        "claude-4-sonnet": 92.0,
+        "claude-4.5-opus": 94.0,
+        "claude-4.5-sonnet": 90.0,
         "claude-3.5-sonnet": 86.2,
-        "gemini-1.5-pro": 84.5,
-        "gpt-4": 80.0,
         "claude-3-opus": 78.5,
-        "deepseek-r1": 85.0,
-        "qwen-2.5-72b": 82.0,
-        "llama-3.1-70b": 78.0,
-        "llama-3-70b": 75.0,
         "claude-3-sonnet": 74.5,
+        "claude-3-haiku": 55.0,
+        
+        "gpt-5": 94.0,
+        "gpt-5-high": 95.0,
+        "gpt-5-medium": 92.0,
+        "gpt-5-low": 88.0,
+        "gpt-4o": 89.5,
+        "gpt-4o-mini": 85.0,
+        "gpt-4-turbo": 87.5,
+        "gpt-4": 80.0,
+        "gpt-3.5-turbo": 50.0,
+        
+        "gemini-2.5-pro": 92.0,
+        "gemini-2.5-flash": 88.0,
+        "gemini-2.0-pro": 85.0,
+        "gemini-2.0-flash": 82.0,
+        "gemini-1.5-pro": 84.5,
         "gemini-1.5-flash": 73.0,
+        
+        "deepseek-r1": 85.0,
+        "deepseek-v3": 82.0,
+        "deepseek-chat": 78.0,
+        
+        "qwen-3-235b": 90.0,
+        "qwen-3-32b": 85.0,
+        "qwen-2.5-72b": 82.0,
+        "qwen-2.5-7b": 72.0,
+        "qwen-2-72b": 68.0,
+        
+        "grok-4": 88.0,
+        "grok-3": 82.0,
+        "grok-2": 75.0,
+        
+        "kimi-k2": 90.0,
+        "kimi-k2.5": 92.0,
+        
+        "llama-4-maverick": 88.0,
+        "llama-4-scout": 82.0,
+        "llama-3.1-405b": 85.0,
+        "llama-3.1-70b": 78.0,
+        "llama-3.1-8b": 68.0,
+        "llama-3-70b": 75.0,
+        "llama-3-8b": 58.0,
+        
+        "mistral-large-3": 82.0,
         "mistral-large": 72.0,
         "mixtral-8x22b": 70.0,
-        "qwen-2-72b": 68.0,
-        "llama-3-8b": 58.0,
-        "claude-3-haiku": 55.0,
-        "gpt-3.5-turbo": 50.0,
+        "mixtral-8x7b": 60.0,
+        
+        "phi-4": 78.0,
         "phi-3-medium": 65.0,
         "phi-3-mini": 55.0,
+        
+        "glm-5": 80.0,
+        "glm-4": 75.0,
+        
+        "minimax-m2.5": 78.0,
+        "minimax-m2.1": 72.0,
     }
     
     result = {}

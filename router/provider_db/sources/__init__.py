@@ -40,6 +40,16 @@ __all__ = [
     'fetch_chinese_elo',
     'fetch_extended_elo',
     'fetch_open_llm_leaderboard',
+    # New sources
+    'fetch_mbpp',
+    'fetch_apps',
+    'fetch_cruxeval',
+    'fetch_theoremqa',
+    'fetch_sciq',
+    'fetch_arc_agi',
+    'fetch_swebench_leaderboard',
+    'fetch_mmlu_pro_v2',
+    'fetch_livecodebench_v5',
     'estimate_scores',
     'fetch_heuristics',
 ]
@@ -132,8 +142,35 @@ def __getattr__(name):
         from .extended_elo import fetch_extended_elo
         return fetch_extended_elo
     elif name == 'fetch_open_llm_leaderboard':
-        from .open_llm_leaderboard import fetch_open_llm_leaderboard
+        from .Open_llm_leaderboard import fetch_open_llm_leaderboard
         return fetch_open_llm_leaderboard
+    elif name == 'fetch_mbpp':
+        from .mbpp import fetch_mbpp
+        return fetch_mbpp
+    elif name == 'fetch_apps':
+        from .apps import fetch_apps
+        return fetch_apps
+    elif name == 'fetch_cruxeval':
+        from .cruxeval import fetch_cruxeval
+        return fetch_cruxeval
+    elif name == 'fetch_theoremqa':
+        from .theoremqa import fetch_theoremqa
+        return fetch_theoremqa
+    elif name == 'fetch_sciq':
+        from .sciq import fetch_sciq
+        return fetch_sciq
+    elif name == 'fetch_arc_agi':
+        from .arc_agi import fetch_arc_agi
+        return fetch_arc_agi
+    elif name == 'fetch_swebench_leaderboard':
+        from .swebench_leaderboard import fetch_swebench_leaderboard
+        return fetch_swebench_leaderboard
+    elif name == 'fetch_mmlu_pro_v2':
+        from .mmlu_pro_v2 import fetch_mmlu_pro_v2
+        return fetch_mmlu_pro_v2
+    elif name == 'fetch_livecodebench_v5':
+        from .livecodebench_v5 import fetch_livecodebench_v5
+        return fetch_livecodebench_v5
     elif name == 'fetch_tool_use':
         from .tool_use import fetch_tool_use
         return fetch_tool_use

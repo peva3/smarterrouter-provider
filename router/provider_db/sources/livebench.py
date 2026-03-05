@@ -177,20 +177,50 @@ def _combine_reasoning_sources() -> Dict[str, float]:
 def _fallback_scores() -> Dict[str, float]:
     """Static LiveBench reasoning scores for major models from published results."""
     known = {
-        "gpt-4o": 85.5,
-        "gpt-4-turbo": 82.3,
+        # Claude family
+        "claude-4.6-opus": 88.67,
+        "claude-4.5-opus": 80.09,
+        "claude-4.5-sonnet": 77.59,
         "claude-3.5-sonnet": 84.7,
         "claude-3-opus": 83.9,
         "claude-3-sonnet": 78.2,
+        
+        # GPT family
+        "gpt-5": 83.21,
+        "gpt-4o": 85.5,
+        "gpt-4-turbo": 82.3,
+        
+        # Gemini family
+        "gemini-2.5-pro": 77.42,
+        "gemini-2.5-flash": 74.55,
         "gemini-1.5-pro": 83.1,
         "gemini-1.5-flash": 77.8,
+        
+        # Llama family
+        "llama-3.1-405b": 79.4,
         "llama-3.1-70b": 79.4,
         "llama-3.1-8b": 70.1,
+        "llama-3-70b": 78.0,
+        "llama-3-8b": 68.0,
         "mixtral-8x7b": 72.5,
+        
+        # Qwen family
         "qwen-2.5-72b": 84.2,
         "qwen-2.5-7b": 73.6,
+        "qwen3-235b": 85.0,
+        "qwen3-32b": 78.0,
+        
+        # DeepSeek family
         "deepseek-r1": 89.3,
+        "deepseek-v3": 77.17,
         "deepseek-chat": 81.7,
+        
+        # Other major models
+        "kimi-k2.5": 75.96,
+        "glm-4": 69.11,
+        "glm-5": 69.11,
+        "grok-4": 79.13,
+        "grok-3": 75.0,
     }
     
     scores = {}

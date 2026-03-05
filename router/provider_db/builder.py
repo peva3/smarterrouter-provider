@@ -261,18 +261,28 @@ class BenchmarkBuilder:
             from .sources import heuristics
             heuristics_applied = 0
             for model_id, data in aggregated.items():
-                # Apply heuristics to models with no scores at all, OR with ELO but no benchmarks
-                if data.reasoning_score == 0 and data.coding_score == 0 and data.general_score == 0:
-                    estimated = heuristics.estimate_scores(model_id)
-                    if estimated:
-                        # Use estimated ELO if available, otherwise keep original
-                        elo = int(estimated["elo_rating"]) if estimated["elo_rating"] > data.elo_rating else data.elo_rating
+                # Get heuristic estimates for this model
+                estimated = heuristics.estimate_scores(model_id)
+                if estimated:
+                    updates = {}
+                    # Fill any zero benchmark scores
+                    if data.reasoning_score == 0:
+                        updates['reasoning_score'] = estimated['reasoning_score']
+                    if data.coding_score == 0:
+                        updates['coding_score'] = estimated['coding_score']
+                    if data.general_score == 0:
+                        updates['general_score'] = estimated['general_score']
+                    # For ELO, replace default (1000) with estimate if available
+                    if data.elo_rating <= 1000:
+                        updates['elo_rating'] = int(estimated['elo_rating'])
+                    
+                    if updates:
                         aggregated[model_id] = ModelBenchmark(
                             model_id=model_id,
-                            reasoning_score=estimated["reasoning_score"],
-                            coding_score=estimated["coding_score"],
-                            general_score=estimated["general_score"],
-                            elo_rating=elo
+                            reasoning_score=updates.get('reasoning_score', data.reasoning_score),
+                            coding_score=updates.get('coding_score', data.coding_score),
+                            general_score=updates.get('general_score', data.general_score),
+                            elo_rating=updates.get('elo_rating', data.elo_rating)
                         )
                         heuristics_applied += 1
             

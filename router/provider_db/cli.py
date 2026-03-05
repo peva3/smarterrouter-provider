@@ -102,6 +102,8 @@ def cmd_stats(args):
 
 def cmd_health(args):
     """Check database health and integrity."""
+    from .health_check import check_database_health, check_sources, print_report
+    
     db_path = Path(args.db_path) if args.db_path else get_default_db_path()
     
     if not db_path.exists():
@@ -109,92 +111,10 @@ def cmd_health(args):
         return 1
     
     db = ProviderDB(db_path)
-    issues = []
+    health = check_database_health(db)
+    sources = check_sources(db)
     
-    print(f"\n=== Health Check ===")
-    print(f"Database: {db_path}")
-    
-    # Check file size
-    size_mb = db_path.stat().st_size / (1024 * 1024)
-    print(f"Size: {size_mb:.2f} MB")
-    
-    # Check table exists
-    stats = None
-    try:
-        stats = db.get_stats()
-        print(f"✓ Models table: {stats['total_models']} rows")
-    except Exception as e:
-        issues.append(f"Models table error: {e}")
-        print(f"✗ Models table error: {e}")
-    
-    # Check aliases table
-    try:
-        alias_count = stats.get('total_aliases', 0) if stats else 0
-        print(f"✓ Aliases table: {alias_count} rows")
-    except Exception as e:
-        issues.append(f"Aliases table error: {e}")
-        print(f"✗ Aliases table error: {e}")
-    
-    # Check for invalid scores
-    with db._get_connection() as conn:
-        cursor = conn.cursor()
-        
-        # Check for NULL scores
-        null_scores = cursor.execute("""
-            SELECT COUNT(*) FROM model_benchmarks 
-            WHERE reasoning_score IS NULL OR coding_score IS NULL OR general_score IS NULL
-        """).fetchone()[0]
-        
-        if null_scores > 0:
-            issues.append(f"Found {null_scores} rows with NULL scores")
-            print(f"✗ NULL scores: {null_scores}")
-        else:
-            print(f"✓ No NULL scores")
-        
-        # Check for out-of-range scores
-        out_of_range = cursor.execute("""
-            SELECT COUNT(*) FROM model_benchmarks 
-            WHERE reasoning_score < 0 OR reasoning_score > 100
-            OR coding_score < 0 OR coding_score > 100
-            OR general_score < 0 OR general_score > 100
-        """).fetchone()[0]
-        
-        if out_of_range > 0:
-            issues.append(f"Found {out_of_range} rows with out-of-range scores")
-            print(f"✗ Out-of-range scores: {out_of_range}")
-        else:
-            print(f"✓ All scores in valid range (0-100)")
-        
-        # Check ELO range
-        invalid_elo = cursor.execute("""
-            SELECT COUNT(*) FROM model_benchmarks 
-            WHERE elo_rating < 0 OR elo_rating > 2000
-        """).fetchone()[0]
-        
-        if invalid_elo > 0:
-            issues.append(f"Found {invalid_elo} rows with invalid ELO")
-            print(f"✗ Invalid ELO: {invalid_elo}")
-        else:
-            print(f"✓ All ELO ratings valid")
-    
-    # Check metadata
-    last_build = db.get_metadata('last_build')
-    if last_build:
-        print(f"✓ Last build: {last_build}")
-    else:
-        issues.append("No last_build metadata")
-        print(f"⚠ No last build timestamp")
-    
-    # Summary
-    print(f"\n=== Summary ===")
-    if issues:
-        print(f"Issues found: {len(issues)}")
-        for issue in issues:
-            print(f"  - {issue}")
-        return 1
-    else:
-        print("✓ Database is healthy!")
-        return 0
+    return print_report(health, sources, verbose=args.verbose)
 
 
 def cmd_validate(args):
@@ -395,6 +315,11 @@ def main():
         '--db-path',
         type=Path,
         help='Path to database file'
+    )
+    health_parser.add_argument(
+        '-v', '--verbose',
+        action='store_true',
+        help='Verbose output with top models'
     )
     health_parser.set_defaults(func=cmd_health)
     
